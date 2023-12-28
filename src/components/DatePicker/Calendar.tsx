@@ -21,6 +21,7 @@ export default function Calendar() {
         setValue(newValue);
       }}
        //@ts-ignore
-      renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />} />
+      renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } 
+        & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />} />
   );
 }

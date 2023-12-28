@@ -47,6 +47,7 @@ export default function Modals({
   const [tabControl, setControl] = useState(false)
   const initialState = {}
   if (Object.keys(initialData).length) {
+    console.log('fields : ',fields)
     if (fields.length) {
       fields.forEach((fi: any) => {
         if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -104,6 +105,7 @@ export default function Modals({
   }
   const onSubmit = () => {
     const data = getValues()
+    console.log('data : ',data)
     let state = {}
     fields
       .filter((i: any) => i.useInSaveMethod === true)
@@ -165,6 +167,7 @@ export default function Modals({
           Object.keys(state).length ===
           fields.filter((i: any) => i.useInSaveMethod === true).length
         ) {
+         // console.log('JSON.stringify(state)',JSON.stringify(state))
           axios
             .post(createUrl, {
               componentId: sectionId,
