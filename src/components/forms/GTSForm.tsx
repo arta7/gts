@@ -70,6 +70,7 @@ const GTSForm = (props: any) => {
   const [masterId, setId] = useState()
   
   useEffect(() => {
+  
     if (id != 0) {
       setParentId(id)
     }

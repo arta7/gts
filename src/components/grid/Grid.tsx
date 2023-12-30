@@ -170,12 +170,14 @@ export default function Grid({
         cell: ({ row }: { row: Row<any> }) => {
           return (
             <Stack spacing={2} direction={'row'}>
-              {hasEdit && <Tooltip title={'ویرایش'}>
+              {hasEdit
+               && <Tooltip title={'ویرایش'}>
                 <IconButton
                   sx={{ p: 0 }}
                   color="primary"
                   aria-label="edit"
                   onClick={() => {
+                    console.log('data edit ',row.original)
                     onEdit(row.original)
                   }}
                 >

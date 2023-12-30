@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { useAxios } from '../hooks/useAxios'
 import MasterGrid from './MasterGrid'
@@ -15,12 +15,15 @@ export default function DynamicComponent({ info }: any) {
   const { id } = useParams()
 
   const getStructure = () => axios.get(`base/v1/api/component/structure/find?subId=${info.subSystemId}&componentId=${info.id}`)
-    .then((response) => response.data.result);
+    .then((response) => 
+    response.data.result
+    );
 
   React.useEffect(() => {
     run(getStructure());
+
   }, [info]);
-console.log()
+ 
   if (isLoading || isIdle) {
     return <GridLoader color="#36d7b7" />
   }

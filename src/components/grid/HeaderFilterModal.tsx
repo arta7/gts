@@ -1,9 +1,11 @@
 import { Box, Popover, useTheme } from "@mui/material";
 import ClientFilter from "./ClientSideFilter";
 import { Filter } from "./Filter";
+import { useEffect } from "react";
 
 export const HeaderFilterModal = ({ header, open, table, anchorEl, onClose, serverSideGrid }: any) => {
     const theme = useTheme();
+ 
     return <Popover
         open={open}
         anchorEl={anchorEl}

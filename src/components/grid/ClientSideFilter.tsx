@@ -1,5 +1,5 @@
 import { Column, Table } from "@tanstack/react-table";
-import React from "react";
+import React,{useEffect} from "react";
 import { DebouncedInput } from "./DebounceInput";
 
 export default function ClientFilter({
@@ -9,9 +9,12 @@ export default function ClientFilter({
     column: Column<any, unknown>;
     table: Table<any>;
 }) {
+
+
     const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id);
+        
 
     const columnFilterValue = column.getFilterValue();
 
@@ -50,7 +53,11 @@ export default function ClientFilter({
         <DebouncedInput
             type="text"
             value={(columnFilterValue ?? "") as string}
-            onChange={(value) => column.setFilterValue(value)}
+            onChange={(value) => {
+                // console.log('value',firstValue)
+                column.setFilterValue(value)
+            
+            }}
             placeholder={`جستجو...`}
         />
     );

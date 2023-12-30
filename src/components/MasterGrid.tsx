@@ -31,10 +31,12 @@ export default function MasterGrid({ structure }: any) {
         componentId: componentInfo.id,
       })
       .then((response: any) => {
+       
         if (!response.data.result) {
           toast.error(inValidResponseFormatGridRows)
           return []
         }
+        console.log('response.data.result',response.data.result)
         return response.data.result
       })
 
@@ -113,6 +115,7 @@ const handleClose = () => setOpen(false);
       paging={true}
       addRowNumber={true}
       grouping={true}
+      
       />
       <AttachmentModal componentName={componentInfo.componentName} open={open} row={rowEntity} onSubmit={handleClose} onClose={handleClose} fileUploadProps={{
                 value: selectedFiles,
