@@ -142,6 +142,7 @@ const FormSection = (props: any) => {
               : false
           setInObject(state, fi.aliasName, _v)
         } else {
+         
           const _v: any =
             data && Object.keys(data).length
               ? getFromObject(data, fi.aliasName) === ''

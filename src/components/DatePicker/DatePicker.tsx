@@ -35,6 +35,7 @@ export default function Datepicker({
             value={value}
              //@ts-ignore
             onChange={( newValue: Date | null, keyboardInputValue: string | undefined) => {
+                console.log('new value',newValue)
                 onChange(newValue);
             }}
             renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => {

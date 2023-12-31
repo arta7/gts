@@ -34,7 +34,9 @@ export default function DatePickerElement<TFieldValues extends FieldValues>({
       defaultValue={null as any}
       render={({ field, fieldState: { error } }) => {
         if (field?.value && typeof field?.value === 'string') {
-          field.value = new Date(field.value) as any // need to see if this works for all localization adaptors
+          
+          field.value = new Date(field.value) as any 
+          // need to see if this works for all localization adaptors
         }
 
         return (
@@ -52,6 +54,7 @@ export default function DatePickerElement<TFieldValues extends FieldValues>({
               }
             }}
             onChange={(v: any, keyboardInputValue: any) => {
+            
               field.onChange(v, keyboardInputValue)
               if (typeof rest.onChange === 'function') {
                 rest.onChange(v, keyboardInputValue)

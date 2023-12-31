@@ -59,11 +59,23 @@ const DatePickerComp = (props: any) => {
         render={({ field: { onChange, value, onBlur } }) => (
           <DatePicker
             label={fieldCaption}
-            value={value&&new Date(value)}
+            value={
+              value
+              &&
+              new Date(value)
+            }
             onChange={(
               newValue: Date | null
             ) => {
-              onChange(newValue)
+              // var valuenew = new Date(newValue?.setHours(newValue?.getHours()+4))
+              // console.log('set Date :: ', new Date(newValue.setHours(newValue.getHours()+4)))
+              if (newValue instanceof Date) {
+                onChange(new Date(newValue.setHours(newValue.getHours() + 4)));
+              } else {
+                onChange(newValue)
+                console.error("newValue is not a valid Date");
+              }
+             
             }}
             slotProps={{
               textField: {

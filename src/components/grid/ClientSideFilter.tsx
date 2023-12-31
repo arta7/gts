@@ -14,6 +14,12 @@ export default function ClientFilter({
     const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id);
+
+        useEffect(()=>{
+console.log('table : ',table
+.getPreFilteredRowModel()
+.flatRows[0])
+        },[])
         
 
     const columnFilterValue = column.getFilterValue();
@@ -56,7 +62,6 @@ export default function ClientFilter({
             onChange={(value) => {
                 // console.log('value',firstValue)
                 column.setFilterValue(value)
-            
             }}
             placeholder={`جستجو...`}
         />

@@ -47,7 +47,7 @@ export default function Modals({
   const [tabControl, setControl] = useState(false)
   const initialState = {}
   if (Object.keys(initialData).length) {
-    console.log('fields : ',fields)
+    // console.log('fields : ',fields)
     if (fields.length) {
       fields.forEach((fi: any) => {
         if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -69,7 +69,18 @@ export default function Modals({
               : false
           setInObject(initialState, fi.aliasName, _v)
           
-        } else {
+        }
+        // else if (fi.uiComponentType === 'DatePicker') {
+  
+        //   const _v: any =
+        //    initialData&& Object.keys(initialData).length
+        //       ?getFromObject(initialData, fi.aliasName)
+        //       : '';
+        //     console.log('data date : ',_v)
+        //   setInObject(initialState, fi.aliasName, _v)
+          
+        // }
+        else {
           const _v: any =
             initialData && Object.keys(initialData).length
               ? getFromObject(initialData, fi.aliasName)
@@ -105,11 +116,12 @@ export default function Modals({
   }
   const onSubmit = () => {
     const data = getValues()
-    console.log('data : ',data)
+    // console.log('data : ',data)
     let state = {}
     fields
       .filter((i: any) => i.useInSaveMethod === true)
       .forEach((fi: any) => {
+        // console.log('fi',fi)
         if (fi.aliasName.includes('subSystemId')) {
           setInObject(state, fi.aliasName, subId)
         } else if (fi.aliasName.includes('componentId')) {
@@ -147,7 +159,19 @@ export default function Modals({
             data && Object.keys(data).length&&getFromObject(data, fi.aliasName)
               ? getFromObject(data, fi.aliasName): 0
           setInObject(state, fi.aliasName, _v)
-        } else {
+        }
+        // else if (fi.uiComponentType === 'DatePicker') {
+  
+        //   const _v: any =
+        //    initialData&& Object.keys(initialData).length
+        //       ?getFromObject(initialData, fi.aliasName)
+        //       : '';
+        //     console.log('data date : ',_v)
+        //   setInObject(initialState, fi.aliasName, _v)
+          
+        // }
+        else {
+          
           const _v: any =
             data && Object.keys(data).length
               ? getFromObject(data, fi.aliasName) === ''
@@ -167,7 +191,7 @@ export default function Modals({
           Object.keys(state).length ===
           fields.filter((i: any) => i.useInSaveMethod === true).length
         ) {
-         // console.log('JSON.stringify(state)',JSON.stringify(state))
+          // console.log('JSON.stringify(state)',JSON.stringify(state))
           axios
             .post(createUrl, {
               componentId: sectionId,

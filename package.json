@@ -39,6 +39,8 @@
     "iconsax-react": "^0.0.8",
     "jalali-react-datepicker": "^1.2.1",
     "jsonwebtoken": "^9.0.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.1",
     "jwt-decode": "^3.1.2",
     "little-state-machine": "^4.8.0",
     "little-state-machine-devtools": "^2.0.2",
