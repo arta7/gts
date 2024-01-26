@@ -38,6 +38,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
         setLoading(true)
         if (!loadDataByPostMethod) {
             return axios.get(url).then((res) => {
+                
                 const _options = res.data.result;
                 setOptions(_options);
                 setLoading(false);

@@ -7,7 +7,7 @@ import { Table } from "@tanstack/react-table";
 import { ExportMenu } from "./ExportMenu";
 
 
-export default function GridSettings({ gridId, table, onAdd, enableColumnVisibility, rowsCount, showRowsCount, exportable,exportToExcel }: { gridId: string, table: Table<any>, onAdd: any, enableColumnVisibility: boolean, rowsCount: number, showRowsCount: boolean, exportable:boolean,exportToExcel:any }) {
+export default function GridSettings({ gridId, table, onAdd, enableColumnVisibility, rowsCount, showRowsCount, exportable,exportToExcel,SubjectCaption }: { gridId: string, table: Table<any>, onAdd: any, enableColumnVisibility: boolean, rowsCount: number, showRowsCount: boolean, exportable:boolean,exportToExcel:any,SubjectCaption:any }) {
     const [columnVisibilitySettingAnchoreEl, setColumnVisibilitySettingAnchoreEl] = React.useState<null | HTMLElement>(null);
     const [exportAnchorEl, setExportAnchorEl] = React.useState<null | HTMLElement>(null);
     const hideColumnVisibilitySetting = () => {
@@ -37,7 +37,7 @@ export default function GridSettings({ gridId, table, onAdd, enableColumnVisibil
             onAdd && <Button sx={{ color: 'white' }} variant="contained" startIcon={<AddCircle variant="TwoTone" />} onClick={onAdd}> {'افزودن'}</Button>
         }
         <ColumnVisibilityModal table={table} onClose={hideColumnVisibilitySetting} anchorEl={columnVisibilitySettingAnchoreEl} />
-        <ExportMenu table={table} anchorEl={exportAnchorEl} onClose={handleExportMenuClose} 
+        <ExportMenu table={table} anchorEl={exportAnchorEl} onClose={handleExportMenuClose}  SubjectCaption={SubjectCaption}
         //exportToExcel={exportToExcel}
         />
     </Box>

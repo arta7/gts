@@ -34,6 +34,7 @@ import {
   getExpandedRowModel,
   getGroupedRowModel,
   GroupingState,
+  
 } from '@tanstack/react-table'
 import { format } from 'date-fns-jalali'
 import axios from 'axios'
@@ -97,7 +98,8 @@ export default function Grid({
   grouping: enableGrouping,
   paging = false,
   exportToExcel,
-  pageSize: customPageSize
+  pageSize: customPageSize,
+  SubjectCaption:SubjectCaption
   // isDataStale,
   // setIsDataStale
 }: any) {
@@ -253,6 +255,7 @@ export default function Grid({
     return axios
       .post(url, gridOptions)
       .then((response) => {
+        
         const data: Array<any> = response.data.result;
         setIsFetching(false);
         // setIsDataStale(false);
@@ -352,6 +355,7 @@ export default function Grid({
   React.useEffect(() => {
     if (serverSideGrid) {
       fetchData(fetchDataOptions).then((data: any) => {
+        console.log('section data  : ',data)
         setData(data);
       })
     }
@@ -390,6 +394,7 @@ export default function Grid({
           exportable={exportable}
           rowsCount={serverSideGrid ? rowsCount : rows.length}
           exportToExcel={exportToExcel}
+          SubjectCaption={SubjectCaption}
         />
       )}
       <TableContainer component={Paper}>

@@ -229,6 +229,7 @@ const FormSection = (props: any) => {
               getValues={getValues}
               errors={formState.errors}
               register={register}
+              isReadOnly={field.isReadOnly}
             />
           )
         })}

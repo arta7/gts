@@ -9,7 +9,7 @@ import Grid from './grid/Grid'
 import useConfirmDialog from './ConfirmDialog/UseConfirmDialog'
 import AttachmentModal from './AttachmentModal'
 
-export default function MasterGrid({ structure }: any) {
+export default function MasterGrid({ structure,SubjectCaption }: any) {
   const hasAttachment = structure?.hasAttachment||true;
   const componentInfo = structure[0]
   const _columns = getGridColumns(componentInfo.fields)
@@ -115,6 +115,7 @@ const handleClose = () => setOpen(false);
       paging={true}
       addRowNumber={true}
       grouping={true}
+      SubjectCaption={SubjectCaption}
       
       />
       <AttachmentModal componentName={componentInfo.componentName} open={open} row={rowEntity} onSubmit={handleClose} onClose={handleClose} fileUploadProps={{

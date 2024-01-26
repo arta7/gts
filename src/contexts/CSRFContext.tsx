@@ -18,6 +18,7 @@ function CSRFProvider({ children }: any) {
   if (!csrfProvided) {
     ;(async () => {
       try {
+       
         const response = await axios(configGetToken)
         const accessToken = response.data.result.access_token
         setCsrfProvided(accessToken)

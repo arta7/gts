@@ -103,7 +103,9 @@ function AuthProvider({ children }: any) {
   useEffect(() => {
     const initialize = async () => {
       try {
+        console.log('status')
         if (token) {
+
           setSession(token)
           await axios.get('auth/v1/api/check-login-status', {
             headers: { authorization: `bearer ${token}` },

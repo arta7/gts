@@ -110,6 +110,7 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
             <AsyncComboInput
             control={control} name={'organizationId'} label='واحد'
             url={`base/v1/api/component/get-dropdown-data?uiComponentId=23379`}
+            
             getOptionLabel={(option: any) => option.name}
             variant='outlined'
                       setFilterValue={setValue}

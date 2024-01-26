@@ -47,7 +47,7 @@ export default function Modals({
   const [tabControl, setControl] = useState(false)
   const initialState = {}
   if (Object.keys(initialData).length) {
-    // console.log('fields : ',fields)
+   
     if (fields.length) {
       fields.forEach((fi: any) => {
         if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -105,6 +105,7 @@ export default function Modals({
   const createUrl = '/gts/v1/api/component-data/create'
   const watchAllFields = watch()
   useEffect(() => {
+     console.log('fields : ',fields)
     const subscription = watch((value, { name, type }) => {
       setControl(name ? true : false)
       setSwalOpen(tabControl)
@@ -265,6 +266,7 @@ export default function Modals({
                   componentName={componentName}
                   masterParentId={masterParentId}
                   masterId={initialData.masterId}
+                  isReadOnly={field.isReadOnly}
                 />
               )
             })}

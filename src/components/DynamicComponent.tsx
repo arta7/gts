@@ -21,9 +21,18 @@ export default function DynamicComponent({ info }: any) {
 
   React.useEffect(() => {
     run(getStructure());
+    
 
   }, [info]);
  
+
+  useEffect(()=>{
+    console.log('componentinfo',info)
+  },[])
+
+
+
+
   if (isLoading || isIdle) {
     return <GridLoader color="#36d7b7" />
   }
@@ -33,7 +42,7 @@ export default function DynamicComponent({ info }: any) {
   else if (isSuccess && componentInfo.length && componentInfo[0].componentName === 'Grid') {
     return (
       <Box padding={2} sx={{ display: 'flex', flexDirection: 'column' }}>
-        <MasterGrid structure={componentInfo} />
+        <MasterGrid structure={componentInfo} SubjectCaption={info.caption}  />
       </Box>
     )
   }

@@ -18,6 +18,7 @@ export default function FormDynamicComponent({ info }: any) {
         )}&componentId=${searchParams.get('componentId')}`,
       )
       .then((response) => {
+        console.log('section data  : ',response.data.result)
         setComponentInfo(response.data.result)
       })
   }, [])

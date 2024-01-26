@@ -5,7 +5,10 @@ export const otpAPI = '/sjm/v1/api/kycOtp';
 export const sejamProfileAPI = '/sjm/v1/api/get-profile';
 
 export const getSejamStatus = (nationalCode: string) => {
-    return axios.get(getSejamStatusAPI + '/' + nationalCode).then((res) => res.data.result);
+    return axios.get(getSejamStatusAPI + '/' + nationalCode).then((res) =>{
+    console.log('data return 1 :  ',res.data) 
+    return res.data.result
+    });
 }
 
 export const sendOtp = (nationalCode: string) => {
