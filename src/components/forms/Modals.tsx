@@ -16,6 +16,7 @@ import axios from 'axios'
 import { Input } from '../inputs/TextField'
 import { useEffect, useState } from 'react'
 import HRMSwal from '../../utils/Swal'
+import { Dropdown } from 'react-bootstrap';
 import { getFromObject, setInObject } from '../../utils/helpers'
 import { getServerError } from '../../utils/axios'
 const style = {
@@ -34,7 +35,7 @@ const style = {
 export default function Modals({
   onClose,
   open,
-  entity: initialData,
+  entity,
   fields,
   setOpen,
   sectionId,
@@ -45,51 +46,87 @@ export default function Modals({
   componentName,
 }: any) {
   const [tabControl, setControl] = useState(false)
-  const initialState = {}
+  // const initialState = {}
+  const [checkdata,setchaeckdata] = useState(1)
+  const [initialData, setInitialData] = useState(entity)
+  const [initialState, setInitialState] = useState({})
+
   if (Object.keys(initialData).length) {
-   
-    if (fields.length) {
-      fields.forEach((fi: any) => {
-        if (fi.uiComponentType === 'MultiSelectDropDown') {
-          const _v: any =
-            initialData && Object.keys(initialData).length
-              ? getFromObject(initialData, fi.aliasName)
-              : []
-          const valueSelectMulti = _v.map((item: any) => {
-            return item[fi.valueIndicator || 'value']
-          })
-          setInObject(initialState, fi.aliasName, {
-            value: valueSelectMulti,
-          })
-        } else if (fi.uiComponentType === 'CheckBox') {
-  
-          const _v: any =
-           initialData&& Object.keys(initialData).length&&getFromObject(initialData, fi.aliasName)
-              ?getFromObject(initialData, fi.aliasName)
-              : false
-          setInObject(initialState, fi.aliasName, _v)
-          
-        }
-        // else if (fi.uiComponentType === 'DatePicker') {
-  
-        //   const _v: any =
-        //    initialData&& Object.keys(initialData).length
-        //       ?getFromObject(initialData, fi.aliasName)
-        //       : '';
-        //     console.log('data date : ',_v)
-        //   setInObject(initialState, fi.aliasName, _v)
-          
-        // }
-        else {
-          const _v: any =
-            initialData && Object.keys(initialData).length
-              ? getFromObject(initialData, fi.aliasName)
-              : ''
-          setInObject(initialState, fi.aliasName, _v)
-        }
-      })
-    }
-  }
+    console.log('fields : ',fields)
+   if (fields.length) {
+     fields.forEach((fi: any) => {
+       if (fi.uiComponentType === 'MultiSelectDropDown') {
+        
+         const _v: any =
+           initialData && Object.keys(initialData).length
+             ? getFromObject(initialData, fi.aliasName)
+             : []
+         const valueSelectMulti = _v.map((item: any) => {
+           return item[fi.valueIndicator || 'value']
+         })
+         setInObject(initialState, fi.aliasName, {
+           value: valueSelectMulti,
+         })
+       } else if (fi.uiComponentType === 'CheckBox') {
+ 
+         const _v: any =
+          initialData&& Object.keys(initialData).length&&getFromObject(initialData, fi.aliasName)
+             ?getFromObject(initialData, fi.aliasName)
+             : false
+         setInObject(initialState, fi.aliasName, _v)
+         
+       }
+       else {
+         const _v: any =
+           initialData && Object.keys(initialData).length
+             ? getFromObject(initialData, fi.aliasName)
+             : ''
+         setInObject(initialState, fi.aliasName, _v)
+       }
+     })
+   }
+ }
+
+  useEffect(() => {
+   if (Object.keys(initialData).length) {
+    console.log('fields : ',fields)
+   if (fields.length) {
+     fields.forEach((fi: any) => {
+       if (fi.uiComponentType === 'MultiSelectDropDown') {
+        
+         const _v: any =
+           initialData && Object.keys(initialData).length
+             ? getFromObject(initialData, fi.aliasName)
+             : []
+         const valueSelectMulti = _v.map((item: any) => {
+           return item[fi.valueIndicator || 'value']
+         })
+         setInObject(initialState, fi.aliasName, {
+           value: valueSelectMulti,
+         })
+       } else if (fi.uiComponentType === 'CheckBox') {
+ 
+         const _v: any =
+          initialData&& Object.keys(initialData).length&&getFromObject(initialData, fi.aliasName)
+             ?getFromObject(initialData, fi.aliasName)
+             : false
+         setInObject(initialState, fi.aliasName, _v)
+         
+       }
+       else {
+        console.log('initialData  4 : > ',initialData,fi.aliasName)
+         const _v: any =
+           initialData && Object.keys(initialData).length
+             ? getFromObject(initialData, fi.aliasName)
+             : ''
+         setInObject(initialState, fi.aliasName, _v)
+      
+       }
+     })
+   }
+ }
+  }, [])
+
 
   const {
     handleSubmit,
@@ -104,13 +141,28 @@ export default function Modals({
   })
   const createUrl = '/gts/v1/api/component-data/create'
   const watchAllFields = watch()
+  const [watchField, setWatchField]: any = useState()
   useEffect(() => {
-     console.log('fields : ',fields)
     const subscription = watch((value, { name, type }) => {
       setControl(name ? true : false)
       setSwalOpen(tabControl)
+      setWatchField(fields?.find((i: any) => i.aliasName === name))
+      // console.log('test name :',getValues())
+      // setValue(name,value)
     })
   }, [watch])
+
+  useEffect(() => {
+    if (watchField) {
+      if (watchField.uiComponentType === Dropdown && watchField.masterFieldId) {
+        //@ts-ignore
+        setValue(watchField.aliasName, "")
+      }
+    }
+  }, [watchField])
+
+
+
   const [swalOpen, setSwalOpen] = useState(false)
   const onCancel = () => {
     setSwalOpen(false)
@@ -140,7 +192,8 @@ export default function Modals({
           setInObject(state, fi.aliasName, {
             value: valueSelectMulti,
           })
-        } else if (fi.uiComponentType === 'DropDown') {
+        } 
+        else if (fi.uiComponentType === 'DropDown') {
           const _v: any =
             data && Object.keys(data).length
               ? getFromObject(data, fi.aliasName) === ''
@@ -149,7 +202,8 @@ export default function Modals({
               : null
 
           setInObject(state, fi.aliasName, _v)
-        } else if (fi.uiComponentType === 'CheckBox') {
+        } 
+        else if (fi.uiComponentType === 'CheckBox') {
             let _v: any =
             data && Object.keys(data).length&&getFromObject(data, fi.aliasName)
               ? getFromObject(data, fi.aliasName): false
@@ -253,16 +307,17 @@ export default function Modals({
             {fields.map((field: any) => {
               const Component = field.Component ? field.Component : Input
               return (
+                
                 <Component
                   {...field}
                   masterFieldAliasName={field.S00_field[0]?.masterFieldAliasName}
                   control={control}
                   key={field.aliasName}
-                  defaultValues={initialState}
-                  errors={errors}
-                  getValues={getValues}
+                  defaultValues={initialState} 
                   setValue={setValue}
+                  getValues={getValues}
                   register={register}
+                  errors={errors}
                   componentName={componentName}
                   masterParentId={masterParentId}
                   masterId={initialData.masterId}

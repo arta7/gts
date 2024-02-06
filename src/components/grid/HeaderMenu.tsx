@@ -48,6 +48,12 @@ export const HeaderMenu = ({ anchorEl, onClose, onFilter, onClearFilter, onToggl
                 </MenuItem>
         }
         {
+            header.column.columnDef?.meta?.type == "date"  &&
+            <MenuItem onClick={onFilter}>
+                     فیلتر تاریخ
+                </MenuItem> 
+        }
+        {
             table.options.enableGrouping && header.column.columnDef.enableGrouping != false && <MenuItem onClick={onToggleGroup}>
                 {
                     header.column.getIsGrouped() ? `حذف گروه بندی بر اساس ${header.column.columnDef.header}` : `گروه بندی`

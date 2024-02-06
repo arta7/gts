@@ -3,10 +3,11 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import TreeView from '@mui/lab/TreeView';
-import React from 'react';
+import React, { useEffect } from 'react';
 import getDynamicIcon from '../DynamicIcon';
 import TreeItem from './TreeItem';
 import { TreeNode } from './TreeNode';
+
 
 export const Tree = ({ items, onChange,defaultValue }: any) => {
     const [checked, setChecked] = React.useState<Array<any>>(defaultValue);
@@ -14,6 +15,8 @@ export const Tree = ({ items, onChange,defaultValue }: any) => {
     const handleSelect = (event: React.SyntheticEvent, nodeId: string) => {
         setSelected(nodeId);
     };
+
+    
 
     const handleToggleSystem = (node: TreeNode, checkItems: boolean) => {
         const newChecked = [...checked];
@@ -68,6 +71,7 @@ export const Tree = ({ items, onChange,defaultValue }: any) => {
     }
 
     const isNodeChecked = (id: string, node: TreeNode, level: number) => {
+        // console.log('check item checked : ',id,node)
         const hasChildren = node.children && node.children.length;
         if (!hasChildren) {
             return isChecked(id);

@@ -1,4 +1,5 @@
 export function getFromArray(arr: any, key: any, field = 'id') {
+
   function getValue(el: any, fields: any) {
     for (const _f of fields) {
       if (el.hasOwnProperty(_f)) el = el[_f]
@@ -13,6 +14,7 @@ export function getFromArray(arr: any, key: any, field = 'id') {
   return null
 }
 export function getFromObject(obj: any, keyChain: string, defaultValue = null) {
+  
   if (!keyChain) return null
 
   for (const key of keyChain.split('.')) {
@@ -26,7 +28,9 @@ export function setInObject(obj: any, keyChain: any, value: any) {
   const keys: any = keyChain.split('.')
   let _o = obj
   const mainKey: any = keys.pop()
+  
   for (const key of keys) {
+  console.log('o : ',_o,"key : ",key)
     if (!_o.hasOwnProperty(key)) _o[key] = {}
     _o = _o[key]
   }

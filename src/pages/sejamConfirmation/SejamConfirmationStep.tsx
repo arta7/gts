@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Captcha from '../../components/Captcha';
 
@@ -21,9 +21,7 @@ const SejamConfirmationStep = ({ user, onSuccess }: { user: any, onSuccess: (use
   const [openOtpModal, setOpenOtpModal] = useState<boolean>(false);
   const [sejami, setSejami] = useState(false);
   const captchaRef = useRef<any>();
-  const nationalCode = '2150239620'
-  
-
+  const nationalCode = "2150232537";
   const onReset = () => {
     startResendOtp();
     startValidOtpCode();
@@ -37,10 +35,8 @@ const SejamConfirmationStep = ({ user, onSuccess }: { user: any, onSuccess: (use
   const enableGetProfileButton = timer == "00:00" || timer == "02:00";
 
   const getSejamConfirmationCode = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): any => {
-    console.log('enableGetProfileButton',enableGetProfileButton)
     const isValidCaptcha = captchaRef.current.handleSubmit(e);
     if (isValidCaptcha) {
-     
       if (!enableGetProfileButton) {
         setOpenOtpModal(true);
         return;
@@ -59,15 +55,13 @@ const SejamConfirmationStep = ({ user, onSuccess }: { user: any, onSuccess: (use
   };
 
   const isSejami = () => {
-    console.log('sejami : ',sejami)
     return new Promise(resolve => {
       if (sejami) {
         resolve(true);
       }
       else {
         return getSejamStatus(nationalCode).then((data: any) => {
-          console.log('return data 2:  ',data )
-
+          console.log('data response : ',data)
           const { status, providerError, errorCode } = data;
           if (providerError == "socket hang up") {
             handleError(sejamUnknownError);

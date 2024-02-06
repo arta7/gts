@@ -7,8 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 
 const OtpModal = ({ open, onClose, timer, resetTimer, disableResetTimer, validCodeTimer }: { open: boolean, onClose: (code?: string) => any, timer: string, resetTimer: any, disableResetTimer: boolean, validCodeTimer: string }) => {
-    // const { user: { cellPhoneNumber } }: any = useAuth();
-    const cellPhoneNumber = '+989398691732'
+    const { user: { cellPhoneNumber } }: any = useAuth();
     const otpLength = 5;
     const location = useLocation();
     const [otp, setOtp] = useState('');

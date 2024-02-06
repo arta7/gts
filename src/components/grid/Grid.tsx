@@ -133,6 +133,11 @@ export default function Grid({
 
   const [rowsCount, setRowsCount] = React.useState<number>(0);
 
+
+    useEffect(()=>{
+      console.log('getFilteredRowModel : ',getFilteredRowModel)
+    },[])
+
   const columns = React.useMemo<ColumnDef<any>[]>(() => {
     const _columns = [...cols].map((col: any) => {
       col.aggregationFn = col.aggregationFn || null;
@@ -244,6 +249,7 @@ export default function Grid({
       PageSize: pageSize,
     }
     if (filters.length) {
+      
       gridOptions.filters = options.filters
     }
     if (sorting.length) {
@@ -255,7 +261,6 @@ export default function Grid({
     return axios
       .post(url, gridOptions)
       .then((response) => {
-        
         const data: Array<any> = response.data.result;
         setIsFetching(false);
         // setIsDataStale(false);
@@ -309,6 +314,7 @@ export default function Grid({
     options.enableSorting = true
     options.state.columnFilters = columnFilters
     options.onColumnFiltersChange = (filterValue: any) => {
+      console.log('filter',filterValue)
       table.setPageIndex(0)
       setColumnFilters(filterValue)
     }
@@ -355,7 +361,6 @@ export default function Grid({
   React.useEffect(() => {
     if (serverSideGrid) {
       fetchData(fetchDataOptions).then((data: any) => {
-        console.log('section data  : ',data)
         setData(data);
       })
     }

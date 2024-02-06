@@ -131,6 +131,7 @@ const handleClose = () => setOpenAttachment(false);
           masterParentId={masterParentId}
           idparam={idparam}
           componentName={componentName}
+        
         />
       )}
         <AttachmentModal open={openAttachment} row={rowEntity} onSubmit={handleClose} onClose={handleClose} fileUploadProps={{

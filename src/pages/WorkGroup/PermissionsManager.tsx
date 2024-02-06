@@ -8,14 +8,19 @@ import GridLoader from "react-spinners/GridLoader";
 
 const getTreeApi = '/gts/v1/api/various-data/fetch'
 
-const PermissionsManager = ({ onChange, defaultValue }: any) => {
+const PermissionsManager = ({ onChange, defaultValue }: any,entity:any) => {
     const [permissionTree, setPermissionTree] = React.useState<Array<TreeNode>>();
 
     const getPermissionTree = () => {
+       
         return axios.post(`${getTreeApi}`, {
-            json: "{\"DataKey\":\"SusbsystemsListForWorkgroup\"}"
+             json: "{\"DataKey\":\"SusbsystemsListForWorkgroup\"}"
+     
         }).then(response => {
             return response.data.result;
+        }).catch((e) => {
+            console.log('error',e)
+            // toast.error("خطا در خواندن دسترسی های گروه کاربری ")
         })
     }
 
@@ -40,12 +45,15 @@ const PermissionsManager = ({ onChange, defaultValue }: any) => {
                     }
                     return item;
                 })
-                setPermissionTree(normalizedItems);
+               // setPermissionTree(dataCheck)
+                 setPermissionTree(res);
+        
             });
         }
     }, []);
 
     const handleTreeChange = (checkedItems: Array<string>) => {
+        console.log('checked item : ',checkedItems)
         onChange(checkedItems.map(id => parseInt(id)));
     }
 

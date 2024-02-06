@@ -4,7 +4,7 @@ import axios from '../../utils/axios';
 import PermissionsManager from './PermissionsManager';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-
+import { TreeNode } from "../../components/tree/TreeNode";
 const getTreeApi = '/gts/v1/api/various-data/fetch'
 
 const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
@@ -12,27 +12,60 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     const createPermissionsService = webService + '/componnent/create';
 
     const getWorkGroupPermissions = () => {
+       console.log('webService',webService)
         return axios.post(`${getTreeApi}`, {
-            "json": "[{\"DataKey\":\"SelectedWorkgroupComponentIds\",\"workgroupId\":" + entity.id + "}]"
+               "json": "[{\"DataKey\":\"SelectedWorkgroupComponentIds\",\"workgroupId\":" + entity.id + "}]"
         }
         ).then(response => {
-            if (response.data.result && response.data.result.length && response.data.result[0].componentIds) {
-                return response.data.result[0].componentIds.map((id: any) => id.toString());
+            console.log('response',response.data)
+            if (response.data.result.length 
+                // && response.data.result[0].componentIds
+                )
+             {
+                return response.data.result
+                //[0].componentIds.map((id: any) => id.toString());
             }
             return [];
-        }).catch(() => {
+        }).catch((e) => {
+            console.log('error',e)
             toast.error("خطا در خواندن دسترسی های گروه کاربری ")
         })
     }
 
     const { handleSubmit } = useForm({
         defaultValues: entity
-    });
+    })
+
+
+      
+    
 
     const [permissions, setPermissions] = useState<Array<string>>([]);
     useEffect(() => {
+        var dataCheck:string[] = [];
         getWorkGroupPermissions().then((data) => {
-            setPermissions(data || [])
+       
+            data.map((item: TreeNode) => {
+                    item.nodeId = item.systemId;
+                    if (item.subSystems) {
+                        item.children = item.subSystems.map((subSystem, index) => {
+                            subSystem.nodeId = subSystem.subSystemId;
+                            if (subSystem.children) {
+                                subSystem.children = subSystem.children?.map(c => {
+                                    c.nodeId = c.id.toString();
+                                    console.log('Node checked : ',c.nodeId)
+                                    dataCheck.push(c.nodeId)
+                                    return c;
+                                });
+                            }
+                            return subSystem;
+                        });
+                    }
+                    return item;
+                })
+             setPermissions(dataCheck)
+
+    
         })
     }, [])
 
@@ -43,6 +76,7 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     }
 
     const createPermissions = () => {
+        console.log('permission:',permissions)
         return axios.post(`${createPermissionsService}`, {
             workgroupId: entity.id,
             componentIds: permissions
@@ -64,7 +98,7 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
         <Dialog open={open} maxWidth={'lg'} onClose={onClose} fullWidth={true}>
             <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
                 <DialogContent>
-                    <PermissionsManager onChange={setPermissions} defaultValue={permissions} />
+                    <PermissionsManager onChange={setPermissions} defaultValue={permissions} entity={entity} />
                 </DialogContent>
 
                 <DialogActions>

@@ -1,6 +1,8 @@
 import { Column, Table } from "@tanstack/react-table";
 import React,{useEffect} from "react";
 import { DebouncedInput } from "./DebounceInput";
+import DateInput from "./DateInput";
+import Datepicker from "../DatePicker/DatePicker";
 
 export default function ClientFilter({
     column,
@@ -14,17 +16,15 @@ export default function ClientFilter({
     const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id);
-
+        var TypeValue =  typeof firstValue; 
         useEffect(()=>{
-console.log('table : ',table
-.getPreFilteredRowModel()
-.flatRows[0])
+console.log('table : ',column.columnDef?.meta?.type)
         },[])
         
 
     const columnFilterValue = column.getFilterValue();
-
-    return typeof firstValue === "number" ? (
+   
+    return ( TypeValue=== "number" ? (
         <div>
             <div className="flex space-x-2">
                 <DebouncedInput
@@ -55,15 +55,26 @@ console.log('table : ',table
                 />
             </div>
         </div>
-    ) : (
+    ) : column.columnDef?.meta?.type === "date" ?  (
+        <DateInput  value={(columnFilterValue ?? "") as Date} onChange={(value) => {
+                         console.log('value', new Date(value).toISOString().substring(0,10))
+                        // column.setFilterValue(value)
+                    }}
+                    placeholder={`تاریخ...`}/>
+      
+           
+    ) 
+    : (
         <DebouncedInput
             type="text"
             value={(columnFilterValue ?? "") as string}
             onChange={(value) => {
+                console.log('value',column)
                 // console.log('value',firstValue)
                 column.setFilterValue(value)
             }}
             placeholder={`جستجو...`}
         />
-    );
+    )
+    )
 }

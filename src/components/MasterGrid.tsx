@@ -41,6 +41,7 @@ export default function MasterGrid({ structure,SubjectCaption }: any) {
       })
 
   React.useEffect(() => {
+    console.log('componentInfo.fields',componentInfo.fields)
     run(loadData())
   }, [componentInfo])
 
@@ -116,7 +117,6 @@ const handleClose = () => setOpen(false);
       addRowNumber={true}
       grouping={true}
       SubjectCaption={SubjectCaption}
-      
       />
       <AttachmentModal componentName={componentInfo.componentName} open={open} row={rowEntity} onSubmit={handleClose} onClose={handleClose} fileUploadProps={{
                 value: selectedFiles,

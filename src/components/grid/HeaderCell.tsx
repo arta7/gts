@@ -1,6 +1,6 @@
 import { Box, IconButton, Popover, TableCell, TableSortLabel } from "@mui/material";
 import { flexRender } from "@tanstack/react-table";
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useEffect } from "react";
 import { MoreVert, FilterAltOutlined } from '@mui/icons-material';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import { HeaderFilterModal } from "./HeaderFilterModal";
@@ -11,6 +11,9 @@ export function HeaderCell({ header, table, serverSideGrid }: { header: any, tab
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [filterAnchorEl, setFilterAnchorEl] = React.useState<null | HTMLElement>(null);
     const selectedHeader = React.useRef<any>(null);
+
+
+    
 
     const handleClick = (event: MouseEvent<HTMLElement>) => {
         event.stopPropagation();
@@ -27,6 +30,7 @@ export function HeaderCell({ header, table, serverSideGrid }: { header: any, tab
     }
 
     const onFilterClick = (event: MouseEvent<HTMLElement>) => {
+        console.log('test')
         setFilterAnchorEl(selectedHeader.current);
         handleClose();
     }

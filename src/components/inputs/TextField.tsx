@@ -4,7 +4,6 @@ import { type } from 'os'
 import { Controller } from 'react-hook-form'
 import { setValidation } from './setValidations'
 import { setValidationPattern } from './setValidationPattern'
-import { useEffect } from 'react'
 
 export function Input(props: any) {
   const {
@@ -42,18 +41,12 @@ export function Input(props: any) {
     acceptEnglishLetters,
     acceptNumbers,
   } = props
-  
-useEffect(()=>{
-    console.log('fieldCaption : ',fieldCaption ,'  isReadOnly  : ',isReadOnly)
-},)
-
   return (
     <Grid item  xs={12} sm={6} md={6} lg={4} xl={4}>
       <Controller
         render={({ field: { onChange, onBlur, value } }) => (
           <TextField
             type={validationRule==="Numeric"?'number':'text'}
-            // disabled={isReadOnly}
             inputProps={
               { readOnly: isReadOnly }
           }
@@ -63,7 +56,7 @@ useEffect(()=>{
             sx={{ display: 'flex', fontSize: '0.7rem' }}
             autoComplete="off"
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={(onChange)}
             value={value}
             required={isMandatory}
             focused={(errors && errors[aliasName]) || value ? true : false}
@@ -72,7 +65,9 @@ useEffect(()=>{
           />
         )}
         rules={{
-          pattern: setValidationPattern(isInteger,canBeZero,canBeNegative,acceptAllChars,acceptPersianLetters,acceptEnglishLetters,acceptNumbers,needToValidate,validationRule,getValues(aliasName)),
+          pattern: setValidationPattern(isInteger,canBeZero,canBeNegative,acceptAllChars,acceptPersianLetters,acceptEnglishLetters,acceptNumbers,needToValidate,validationRule
+            ,getValues(aliasName)
+            ),
           required: isMandatory,
           maxLength: maxLen,
           minLength: minLen,
