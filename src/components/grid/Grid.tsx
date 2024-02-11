@@ -34,6 +34,7 @@ import {
   getExpandedRowModel,
   getGroupedRowModel,
   GroupingState,
+  filterFns,
   
 } from '@tanstack/react-table'
 import { format } from 'date-fns-jalali'
@@ -52,7 +53,8 @@ type GridOptions = {
   filters?: Array<any>
   sorting?: Array<any>
   PageNumber: Number
-  PageSize: Number
+  PageSize: Number,
+  
 }
 
 export type CustomAction = {
@@ -140,7 +142,16 @@ export default function Grid({
 
   const columns = React.useMemo<ColumnDef<any>[]>(() => {
     const _columns = [...cols].map((col: any) => {
+      
       col.aggregationFn = col.aggregationFn || null;
+      // const dateFilterFn = (row: any) => {
+      //   // Implement your filtering logic here (e.g., check if date is within a range)
+      //   const dateValue = row.original["lastIssueDate"]; // Replace with your date column name
+      //   console.log('datevalue : ',row.original["lastIssueDate"])
+      
+      //   // ... comparison logic
+      //   return (dateValue); // Replace with your comparison logic
+      // }
       if (col.meta) {
         if (col.meta.type == 'boolean') {
           col.cell = ({ getValue }: any) =>
@@ -150,6 +161,7 @@ export default function Grid({
               <Checkbox disabled sx={{ p: 0 }} />
             )
         } else if (col.meta.type == 'date') {
+          // col.filterFn = dateFilterFn,
           col.cell = ({ getValue }: any) =>
             // getValue() ? format(new Date(getValue()), 'yyyy/MM/dd') : ''
             getValue() ? moment(getValue().toString().substring(0,10), 'yyyy/MM/DD').locale('fa').format('YYYY/MM/DD') : ''; 
@@ -160,6 +172,7 @@ export default function Grid({
       }
       return col
     })
+   
     if (addRowNumber) {
       _columns.unshift({
         id: 'rowNumber',
@@ -255,6 +268,7 @@ export default function Grid({
     if (sorting.length) {
       gridOptions.sorting = options.sorting
     }
+    
     if (getDataParams) {
       gridOptions = { ...gridOptions, ...getDataParams }
     }
@@ -314,9 +328,9 @@ export default function Grid({
     options.enableSorting = true
     options.state.columnFilters = columnFilters
     options.onColumnFiltersChange = (filterValue: any) => {
-      console.log('filter',filterValue)
+      console.log('filter value : ',typeof(filterValue))
       table.setPageIndex(0)
-      setColumnFilters(filterValue)
+       setColumnFilters(filterValue)
     }
   }
   if (enablePaging) {

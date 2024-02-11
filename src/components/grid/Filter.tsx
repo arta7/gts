@@ -14,7 +14,7 @@ export function Filter({ column, table }: {
   const firstValue = table
     .getPreFilteredRowModel()
     .flatRows[0]?.getValue(column.id)
-
+    column.getFilterFn
   const columnFilterValue = column.getFilterValue()
  
    return <DebouncedInput

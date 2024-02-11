@@ -76,7 +76,8 @@ export function HeaderCell({ header, table, serverSideGrid }: { header: any, tab
             )}
         </TableCell>
         {
-            anchorEl && <HeaderMenu anchorEl={anchorEl} header={header} table={table} onClose={handleClose} onFilter={onFilterClick} onClearFilter={onClearFilter} onToggleGroup={toggleGroup} />
+            anchorEl && <HeaderMenu anchorEl={anchorEl} header={header} table={table} onClose={handleClose} 
+            onFilter={onFilterClick} onClearFilter={onClearFilter} onToggleGroup={toggleGroup} />
         }
         {
             filterAnchorEl && <HeaderFilterModal open={Boolean(filterAnchorEl)} anchorEl={filterAnchorEl} onClose={handleCloseFilter} header={header} table={table} serverSideGrid={serverSideGrid} />

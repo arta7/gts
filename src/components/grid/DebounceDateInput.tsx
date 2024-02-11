@@ -10,11 +10,11 @@ type InputProps = {
   inputProps?: any
   label?: string
   type?:string,
-  min?:number,
-  max?:number
+  min?:Date,
+  max?:Date
 }
 
-export function DebouncedInput({
+export function DebounceDateInput({
   value: initialValue,
   onChange,
   debounce = 500,
@@ -50,7 +50,7 @@ export function DebouncedInput({
     <TextField inputRef={inputRef} size="small" margin="dense" sx={{backgroundColor:'white'}}
      {...props} value={value} onChange={e => setValue(e.target.value)}
       InputProps={{
-        endAdornment: value && props.type=='text' && <InputAdornment position="end" onClick={() => { setValue('') }}>
+        endAdornment: value && props.type=='date' && <InputAdornment position="end" onClick={() => { setValue('') }}>
           {inputIcon}
         </InputAdornment>
       }} />

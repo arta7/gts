@@ -22,7 +22,7 @@
     "@fullcalendar/timegrid": "^6.0.3",
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.127",
-    "@mui/material": "^5.11.3",
+    "@mui/material": "^5.11.14",
     "@mui/x-data-grid-premium": "^6.18.6",
     "@mui/x-date-pickers": "^6.8.0",
     "@reduxjs/toolkit": "^1.9.1",

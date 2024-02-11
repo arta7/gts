@@ -3,7 +3,6 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 // import TextField, { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants } from '@mui/material/TextField';
 import Datepicker from '../DatePicker/DatePicker';
-
 type InputProps = {
   value: any
   onChange: (value: any) => void
@@ -39,7 +38,7 @@ export default function DateInput({
       renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } 
         & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />} /> */}
 
-        <Datepicker value={value}  onChange={onChange} label='تاریخ' />
+        <Datepicker value={value}  onChange={onChange} label={props.placeholder} />
       </DemoContainer>
   );
 }

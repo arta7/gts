@@ -1,5 +1,5 @@
 import { Column, Table } from "@tanstack/react-table";
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { DebouncedInput } from "./DebounceInput";
 import DateInput from "./DateInput";
 import Datepicker from "../DatePicker/DatePicker";
@@ -12,16 +12,47 @@ export default function ClientFilter({
     table: Table<any>;
 }) {
 
-
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    
     const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id);
         var TypeValue =  typeof firstValue; 
-        useEffect(()=>{
-console.log('table : ',column.columnDef?.meta?.type)
-        },[])
-        
 
+        const handleStartDateChange = (event) => {
+            console.log('event start date : ',event.toISOString())
+            setStartDate(event.toISOString());
+          };
+        
+          const handleEndDateChange = (event) => {
+            setEndDate(event.toISOString());
+          };
+        
+          const applyDateRangeFilter = () => {
+            const startDateAsDate = new Date(startDate);
+            const endDateAsDate = new Date(endDate);
+          
+            // column.setFilterValue((oldDates) => {
+            //   // Ensure oldDates is defined by checking for its existence
+            //   if (!oldDates) {
+            //     oldDates = []; // Initialize with an empty array if undefined
+            //   }
+          
+            //   const newDates = oldDates.filter((dateString) => {
+            //     const dateValue = new Date(dateString);
+            //     return dateValue >= startDateAsDate && dateValue <= endDateAsDate;
+            //   });
+          
+            //   return newDates;
+            // })
+          };
+     
+        
+        const compareDates = (filterValue, rowDate) => {
+            const filterDate = new Date(filterValue); // Assuming filterValue is a string
+            return filterDate.getTime() === rowDate.getTime();
+          };
     const columnFilterValue = column.getFilterValue();
    
     return ( TypeValue=== "number" ? (
@@ -56,13 +87,20 @@ console.log('table : ',column.columnDef?.meta?.type)
             </div>
         </div>
     ) : column.columnDef?.meta?.type === "date" ?  (
-        <DateInput  value={(columnFilterValue ?? "") as Date} onChange={(value) => {
-                         console.log('value', new Date(value).toISOString().substring(0,10))
-                        // column.setFilterValue(value)
-                    }}
-                    placeholder={`تاریخ...`}/>
-      
-           
+        
+        <div>
+      <DateInput  
+        value={startDate}
+        onChange={handleStartDateChange}
+        placeholder={`تاریخ شروع`}
+        
+        />
+        <DateInput  
+        value={endDate}
+        onChange={handleEndDateChange}
+        placeholder={`تاریخ پایان`}/>
+      <button onClick={applyDateRangeFilter}>تایید</button>
+    </div>   
     ) 
     : (
         <DebouncedInput
