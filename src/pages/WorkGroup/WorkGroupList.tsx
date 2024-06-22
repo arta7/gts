@@ -22,6 +22,7 @@ const createWorkGroup = () => ({ name: '', isActive: false, isManager: false }) 
 export const loader = () => {
     console.log("WorkGrouploader")
     return axios.get(`${workgroupWebService}/inquiry`).then(response => {
+        console.log('rows : ',response.data.result)
         return response.data.result;
     })
 }
@@ -116,7 +117,8 @@ export default function WorkgroupList() {
             open && <WorkGroupEditForm open={open} entity={entity} onClose={handleCloseModal} webService={workgroupWebService} />
         }
         {
-            openPermissionManager && <PermissionManagerModal open={openPermissionManager} entity={entity} onClose={handleClosePermissionManagerModal} webService={workgroupWebService} />
+            openPermissionManager && <PermissionManagerModal open={openPermissionManager} entity={entity}
+             onClose={handleClosePermissionManagerModal} webService={workgroupWebService} />
         }
     </Box>
 }

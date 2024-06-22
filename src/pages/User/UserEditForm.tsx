@@ -5,12 +5,13 @@ import axios from 'axios';
 import { TextFieldControl } from '../../components/FormControl/TextFieldControl';
 import { CheckboxControl } from '../../components/FormControl/CheckBoxControl';
 import PasswordIcon from '../../components/FormControl/PasswordIcon';
+import AsyncComboInput from '../../components/inputs/AsyncComboInput';
 
 export default function UserEditForm({ onClose, open, entity, webService }: any) {
   const { handleSubmit, getValues, formState: { errors }, control } = useForm({
     defaultValues: entity
   });
-
+  const uiComponentId = 28270 ;
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRePassword, setShowRePassword] = React.useState(false);
 
@@ -83,6 +84,19 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
             <Grid item md={5} sm={12}>
               <TextFieldControl type="email" name='email' label='ایمیل' control={control} errors={errors} required={true} />
             </Grid>
+            <Grid item md={5} sm={12}>
+            <AsyncComboInput
+            control={control} name={'UnitId'} label='گروه کاری'
+            url={`/base/v1/api/workgroup/inquiry`}
+            getOptionLabel={(option: any) => option.name}
+            variant='outlined'
+                      // setFilterValue={setValue}
+                      
+          />
+          
+              {/* <TextFieldControl type="Unit" name='email' label='واحد' control={control} errors={errors} required={true} /> */}
+            </Grid>
+
             <Grid item md={8} sm={12}>
               <TextFieldControl multiline name='address' label='آدرس' required={true} control={control} errors={errors} />
             </Grid>

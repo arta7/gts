@@ -63,6 +63,12 @@ export type CustomAction = {
   tooltip: string
 }
 
+export type UnitAction = {
+  method: (row: any) => any
+  icon: ReactNode
+  tooltip: string
+}
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.main,
@@ -101,7 +107,8 @@ export default function Grid({
   paging = false,
   exportToExcel,
   pageSize: customPageSize,
-  SubjectCaption: SubjectCaption
+  SubjectCaption: SubjectCaption,
+  UnitAction
   // isDataStale,
   // setIsDataStale
 }: any) {
@@ -153,7 +160,7 @@ export default function Grid({
               <Checkbox disabled sx={{ p: 0 }} />
             )
         } else if (col.meta.type == 'date') {
-          col.filterFn = (row:any, id:any, value:any) => {
+          col.filterFn = (row: any, id: any, value: any) => {
             var fDate, lDate, cDate;
             fDate = Date.parse(value["StartDate"]);
             lDate = Date.parse(value["EndDate"]);
@@ -180,7 +187,7 @@ export default function Grid({
         aggregationFn: null
       })
     }
-    if (onEdit || onDelete || customAction) {
+    if (onEdit || onDelete || customAction || UnitAction) {
       _columns.push({
         id: 'actions',
         header: '',
@@ -239,6 +246,19 @@ export default function Grid({
                     onClick={() => customAction.method(row.original)}
                   >
                     {customAction.icon}
+                  </IconButton>
+                </Tooltip>
+              )}
+
+              {UnitAction && (
+                <Tooltip title={UnitAction.tooltip}>
+                  <IconButton
+                    sx={{ p: 0 }}
+                    color="primary"
+                    aria-label="delete"
+                    onClick={() => UnitAction.method(row.original)}
+                  >
+                    {UnitAction.icon}
                   </IconButton>
                 </Tooltip>
               )}
