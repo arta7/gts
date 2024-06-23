@@ -11,9 +11,13 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
   const { handleSubmit, getValues, formState: { errors }, control } = useForm({
     defaultValues: entity
   });
-  const uiComponentId = 28270 ;
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRePassword, setShowRePassword] = React.useState(false);
+  const [filterValue, setfilterValue] = React.useState(entity.UnitId)
+
+  React.useEffect(() => {
+    // setfilterValue(entity.UnitId)
+  }, [])
 
   const onCancel = () => {
     onClose()
@@ -22,20 +26,20 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
   const onSubmit = () => {
     let promise;
     const entityToSave = getValues();
-     console.log('OnSubmit ', entity.id)
+    console.log('entityToSave',entityToSave)
     if (entity.id) {
       console.log('tets1')
       promise = axios.put(`${webService}/change/${entity.id}`, entityToSave);
     }
     else {
-      console.log('tets2',entityToSave)
+      console.log('tets2', entityToSave)
       promise = axios.post(`${webService}/register`, entityToSave);
     }
     promise.then((response) => {
-      console.log('response',response)
+      console.log('response', response)
       onClose(true);
-    }).catch((error)=>{
-      console.log('error',error)
+    }).catch((error) => {
+      console.log('error', error)
     });
   }
 
@@ -79,22 +83,22 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
               <TextFieldControl name='personelCode' label='کد پرسنلی' control={control} errors={errors} />
             </Grid>
             <Grid item md={5} sm={12}>
-              <TextFieldControl name='cellPhoneNumber' label='شماره همراه' type='mobileNumber' control={control} errors={errors} required={true}/>
+              <TextFieldControl name='cellPhoneNumber' label='شماره همراه' type='mobileNumber' control={control} errors={errors} required={true} />
             </Grid>
             <Grid item md={5} sm={12}>
               <TextFieldControl type="email" name='email' label='ایمیل' control={control} errors={errors} required={true} />
             </Grid>
             <Grid item md={5} sm={12}>
-            <AsyncComboInput
-            control={control} name={'UnitId'} label='گروه کاری'
-            url={`/base/v1/api/workgroup/inquiry`}
-            getOptionLabel={(option: any) => option.name}
-            variant='outlined'
-                      // setFilterValue={setValue}
-                      
-          />
-          
-              {/* <TextFieldControl type="Unit" name='email' label='واحد' control={control} errors={errors} required={true} /> */}
+              <AsyncComboInput
+                control={control} name='UnitId' label='گروه کاری'
+                url={`/base/v1/api/workgroup/inquiry`}
+                getOptionLabel={(option: any) => option?.name}
+                variant='outlined'
+                rules={{ required: true }}
+                value={filterValue}
+                setFilterValue={setfilterValue}    
+              />
+
             </Grid>
 
             <Grid item md={8} sm={12}>

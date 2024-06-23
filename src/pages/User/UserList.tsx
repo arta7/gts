@@ -62,7 +62,7 @@ const webService = '/user/v1/api';
 export function loader() {
     // console.log("WorkGrouploader")
     return axios.get(`${webService}/inquiry`).then(response => {
-        // console.log('rows UserList : ', `${webService}/inquiry`,response.data.result)
+         console.log('rows UserList : ',response.data.result)
         return response.data.result;
     })
 };

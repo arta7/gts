@@ -90,7 +90,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
         }
     }, [open]);
     React.useEffect(() => {
-        setValue(null)
+       // setValue(null)
     }, [options,disabled]);
 
     return (
@@ -130,6 +130,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
                     helperText={helperText}
                     error={error}
                     label={label}
+                    value={value}
                     InputProps={{
                         ...params.InputProps,
                         endAdornment: (

@@ -37,6 +37,7 @@ export default function UserUnitGroupEditForm({ onClose, open, entity, webServic
   });
   const [currentValue, setcurrentValue] = React.useState<({ organizationId: number })[]>([]);
 
+
   const onCancel = () => {
     onClose()
   }
@@ -54,14 +55,36 @@ export default function UserUnitGroupEditForm({ onClose, open, entity, webServic
     });
   }
 
+  const GetUserAccess = () => {
+    let promise = axios.post(`/user/v1/api/getUserWorkGroup`, { "UserId": UserId });
+    promise.then((response) => {
+      console.log('response User Value : ', control)
+      var data=[]
+      for(let i=0;i<response.data.result.length;i++)
+        {
+      let value = { organizationId: response.data.result[i].organizationId }
+
+      data.push(value);
+        }
+
+
+        setcurrentValue(data);
+    });
+  }
+
+  React.useEffect(() => {
+    GetUserAccess()
+  }, [])
+
+
   return (
     <Dialog open={open} onClose={onClose}>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate={true} >
         <DialogContent>
           {/* <TextFieldControl name="name" control={control} label="نام" margin="dense" rules={{ required: "*" }} autoFocus required={true} errors={errors} /> */}
           <FormGroup>
             {
-              entity.map((item: WorkGroupForEdit) => 
+              entity.map((item: WorkGroupForEdit) =>
                 <CheckboxControl name={item.id} label={item.name} control={control} onchange={() => {
                   if (currentValue?.filter(a => a?.organizationId == item.id).length > 0) {
                     let value = currentValue.filter(a => a?.organizationId !== item.id);
@@ -69,16 +92,14 @@ export default function UserUnitGroupEditForm({ onClose, open, entity, webServic
                     setcurrentValue(value);
                   }
                   else {
-                    // const myNextList = Object.assign({}, currentValue);
-                    // const DatesStep = myNextList;
                     let value = { organizationId: item.id }
 
                     setcurrentValue([...currentValue, value]);
 
-                    console.log('currentValue',currentValue)
+                    console.log('currentValue', currentValue)
                   }
 
-                }} />
+                }} listcheckvalue={currentValue.filter(a=>a.organizationId == item.id).length > 0 ? true:false} />
               )
             }
 

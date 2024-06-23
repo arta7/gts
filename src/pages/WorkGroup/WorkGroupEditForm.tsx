@@ -17,6 +17,7 @@ export default function WorkGroupEditForm({ onClose, open, entity, webService }:
   const onSubmit = () => {
     let promise;
     const entityToSave = getValues();
+  
     if (entity.id) {
       promise = axios.put(`${webService}/change/${entity.id}`, entityToSave);
     }
@@ -34,8 +35,8 @@ export default function WorkGroupEditForm({ onClose, open, entity, webService }:
         <DialogContent>
           <TextFieldControl name="name" control={control} label="نام" margin="dense" rules={{ required: "*" }} autoFocus required={true} errors={errors} />
           <FormGroup>
-            <CheckboxControl name="isManager" label="سطح مدیریت" control={control} />
-            <CheckboxControl name="isActive" label="فعال" control={control} />
+            <CheckboxControl name="isManager" label="سطح مدیریت" control={control}  currentValue={null}  onchange={null} />
+            <CheckboxControl name="isActive" label="فعال" control={control} currentValue={null}/>
           </FormGroup>
         </DialogContent>
         <DialogActions>
