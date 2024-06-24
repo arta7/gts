@@ -150,10 +150,7 @@ export default function UserList() {
     }
 
     const columns = [
-        {
-            accessorKey: 'userName',
-            header: 'نام کاربری'
-        },
+       
         {
             accessorKey: 'firstName',
             header: 'نام'
@@ -161,6 +158,10 @@ export default function UserList() {
         {
             accessorKey: 'lastName',
             header: 'نام خانوادگی'
+        },
+        {
+            accessorKey: 'userName',
+            header: 'نام کاربری'
         },
         {
             accessorKey: 'nationalCode',

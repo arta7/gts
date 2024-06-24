@@ -52,6 +52,16 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
               <TextFieldControl name='userName' label='نام کاربری' control={control} fullWidth={true} required={true} errors={errors} />
             </Grid>
             <Grid item md={5} sm={12}>
+              <AsyncComboInput
+                control={control} name='UnitId' label='گروه کاری'
+                url={`/base/v1/api/workgroup/inquiry`}
+                getOptionLabel={(option: any) => option?.name}
+                variant='outlined'
+                rules={{ required: true }}
+                value={filterValue}
+                setFilterValue={setfilterValue}    
+              />
+
             </Grid>
             <Grid item md={5} sm={12}>
               <TextFieldControl name='password' label='کلمه عبور' control={control} type={showPassword ? 'text' : 'password'} errors={errors}
@@ -88,18 +98,7 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
             <Grid item md={5} sm={12}>
               <TextFieldControl type="email" name='email' label='ایمیل' control={control} errors={errors} required={true} />
             </Grid>
-            <Grid item md={5} sm={12}>
-              <AsyncComboInput
-                control={control} name='UnitId' label='گروه کاری'
-                url={`/base/v1/api/workgroup/inquiry`}
-                getOptionLabel={(option: any) => option?.name}
-                variant='outlined'
-                rules={{ required: true }}
-                value={filterValue}
-                setFilterValue={setfilterValue}    
-              />
-
-            </Grid>
+         
 
             <Grid item md={8} sm={12}>
               <TextFieldControl multiline name='address' label='آدرس' required={true} control={control} errors={errors} />
