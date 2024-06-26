@@ -17,7 +17,7 @@ export type WorkGroup = {
 
 export const workgroupWebService = '/base/v1/api/workgroup';
 
-const createWorkGroup = () => ({ name: '', isActive: false, isManager: false }) as WorkGroup;
+const createWorkGroup = () => ({ name: '', isActive: false, isManager: false}) as WorkGroup;
 
 export const loader = () => {
     console.log("WorkGrouploader")
@@ -39,6 +39,7 @@ export default function WorkgroupList() {
     const rows = useLoaderData();
 
     const openModal = (entity: WorkGroup) => {
+        console.log('entity',entity)
         setEntity(entity);
         setOpen(true);
     };
@@ -83,6 +84,7 @@ export default function WorkgroupList() {
     }
 
     const onEdit = (rowEntity: WorkGroup) => {
+        console.log('rowentity',rowEntity)
         openModal(rowEntity);
     };
 

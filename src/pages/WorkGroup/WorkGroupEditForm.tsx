@@ -17,7 +17,7 @@ export default function WorkGroupEditForm({ onClose, open, entity, webService }:
   const onSubmit = () => {
     let promise;
     const entityToSave = getValues();
-  
+  console.log('entity.id',entityToSave)
     if (entity.id) {
       promise = axios.put(`${webService}/change/${entity.id}`, entityToSave);
     }

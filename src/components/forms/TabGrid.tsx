@@ -81,7 +81,7 @@ export default function TabGrid(props: any) {
   const theme = useTheme()
 
   const onEdit = (rowEntity: any) => {
-    // console.log('rowEntity',rowEntity)
+     console.log('rowEntity',rowEntity)
     openModal(rowEntity)
   }
   const onDelete = (row: any) => {

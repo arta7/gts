@@ -59,7 +59,7 @@ export default function AutocompleteInput(props: any) {
  
   const { loading, get, data: response, error } = useAxios()
   useEffect(() => {
-    console.log('masterFieldAliasName',uiComponentId)
+    console.log('masterFieldAliasName',uiComponentId,componentName)
     if (componentName == 'Tab') {
       if (masterFieldId) {
         if (getValues(masterFieldAliasName)) {
@@ -127,6 +127,7 @@ export default function AutocompleteInput(props: any) {
   }, [getValues()])
   useEffect(() => {
     if (api) {
+      console.log('api',api)
       get(api)
     }
   }, [api])

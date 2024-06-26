@@ -12,9 +12,12 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     const createPermissionsService = webService + '/componnent/create';
 
     const getWorkGroupPermissions = () => {
-       console.log('webService',webService)
+        let value = { DataKey: "SelectedWorkgroupComponentIds",workgroupId:entity.id }
+       console.log('entity.id =>',entity.id)
         return axios.post(`${getTreeApi}`, {
-               "json": "[{\"DataKey\":\"SelectedWorkgroupComponentIds\",\"workgroupId\":" + entity.id + "}]"
+            //    "json": "[{DataKey:SelectedWorkgroupComponentIds,workgroupId:" + entity.id + "}]"
+         "json": `${JSON.stringify(value)}`
+           
         }
         ).then(response => {
             console.log('response',response.data)
@@ -28,7 +31,7 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
             return [];
         }).catch((e) => {
             console.log('error',e)
-            toast.error("خطا در خواندن دسترسی های گروه کاربری ")
+           // toast.error("خطا در خواندن دسترسی های گروه کاربری ")
         })
     }
 
@@ -44,7 +47,7 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     useEffect(() => {
         var dataCheck:string[] = [];
         getWorkGroupPermissions().then((data) => {
-       
+                
             data.map((item: TreeNode) => {
                     item.nodeId = item.systemId;
                     if (item.subSystems) {
