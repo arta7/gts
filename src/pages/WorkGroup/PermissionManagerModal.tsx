@@ -10,28 +10,28 @@ const getTreeApi = '/gts/v1/api/various-data/fetch'
 const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     const editPermissionsService = webService + '/componnent/change/';
     const createPermissionsService = webService + '/componnent/create';
+    const DeletePermissionsService = webService + '/component/Delete';
 
     const getWorkGroupPermissions = () => {
-        let value = { DataKey: "SelectedWorkgroupComponentIds",workgroupId:entity.id }
-       console.log('entity.id =>',entity.id)
+        let value = { DataKey: "SelectedWorkgroupComponentIds", workgroupId: entity.id }
+        console.log('entity.id =>', entity.id)
         return axios.post(`${getTreeApi}`, {
             //    "json": "[{DataKey:SelectedWorkgroupComponentIds,workgroupId:" + entity.id + "}]"
-         "json": `${JSON.stringify(value)}`
-           
+            "json": `${JSON.stringify(value)}`
+
         }
         ).then(response => {
-            console.log('response',response.data)
-            if (response.data.result.length 
+            console.log('response', response.data)
+            if (response.data.result.length
                 // && response.data.result[0].componentIds
-                )
-             {
+            ) {
                 return response.data.result
                 //[0].componentIds.map((id: any) => id.toString());
             }
             return [];
         }).catch((e) => {
-            console.log('error',e)
-           // toast.error("خطا در خواندن دسترسی های گروه کاربری ")
+            console.log('error', e)
+            // toast.error("خطا در خواندن دسترسی های گروه کاربری ")
         })
     }
 
@@ -40,58 +40,57 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
     })
 
 
-      
-    
+
+
 
     const [permissions, setPermissions] = useState<Array<string>>([]);
     useEffect(() => {
-        var dataCheck:string[] = [];
+        var dataCheck: string[] = [];
         getWorkGroupPermissions().then((data) => {
-                
-            data.map((item: TreeNode) => {
-                    item.nodeId = item.systemId;
-                    if (item.subSystems) {
-                        item.children = item.subSystems.map((subSystem, index) => {
-                            subSystem.nodeId = subSystem.subSystemId;
-                            if (subSystem.children) {
-                                subSystem.children = subSystem.children?.map(c => {
-                                    c.nodeId = c.id.toString();
-                                    console.log('Node checked : ',c.nodeId)
-                                    dataCheck.push(c.nodeId)
-                                    return c;
-                                });
-                            }
-                            return subSystem;
-                        });
-                    }
-                    return item;
-                })
-             setPermissions(dataCheck)
+            console.log('data', data[0].componentIds)
+            let Value = []
+            for (let i = 0; i < data[0].componentIds.length; i++) {
+                Value.push(data[0].componentIds[i].toString())
+            }
+            console.log('Value permission', Value)
+            setPermissions(Value)
 
-    
+
         })
     }, [])
 
-    const editPermissions = () => {
-        return axios.put(`${editPermissionsService}${entity.id}`, {
-            componentIds: permissions
-        })
-    }
+    // const editPermissions = () => {
+    //     return axios.put(`${DeletePermissionsService}${entity.id}`, {
+    //         componentIds: permissions
+    //     })
+    // }
 
     const createPermissions = () => {
-        console.log('permission:',permissions)
+        console.log('permission:', permissions)
         return axios.post(`${createPermissionsService}`, {
             workgroupId: entity.id,
             componentIds: permissions
         })
     }
 
+    const DeletePermissions = () => {
+        console.log('permission:', permissions)
+        return axios.post(`${DeletePermissionsService}`, {
+            workgroupId: entity.id
+        })
+    }
+
 
 
     const onSubmit = () => {
-        let promise = createPermissions();
+        let promise = DeletePermissions();
         promise.then((response) => {
-            onClose(true);
+            console.log('response', response)
+            let pro = createPermissions()
+            pro.then((response1) => {
+                onClose(true);
+            });
+
         });
     }
     const onCancel = () => {

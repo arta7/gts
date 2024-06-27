@@ -17,6 +17,7 @@ const PermissionsManager = ({ onChange, defaultValue }: any,entity:any) => {
              json: "{\"DataKey\":\"SusbsystemsListForWorkgroup\"}"
      
         }).then(response => {
+            console.log('response tree :=>',response)
             return response.data.result;
         }).catch((e) => {
             console.log('error',e)
@@ -46,6 +47,7 @@ const PermissionsManager = ({ onChange, defaultValue }: any,entity:any) => {
                     return item;
                 })
                // setPermissionTree(dataCheck)
+               console.log('res',res)
                  setPermissionTree(res);
         
             });
