@@ -15,20 +15,22 @@ export default function DynamicComponent({ info }: any) {
   const { id } = useParams()
 
   const getStructure = () => axios.get(`base/v1/api/component/structure/find?subId=${info.subSystemId}&componentId=${info.id}`)
-    .then((response) => 
-    response.data.result
-    );
+    .then((response) => {
+      console.log('response return mastergrid ',response.data.result)
+      return response.data.result
+    });
 
   React.useEffect(() => {
+
     run(getStructure());
-    
+
 
   }, [info]);
- 
 
-  useEffect(()=>{
-    console.log('componentinfo',info)
-  },[])
+
+  useEffect(() => {
+    console.log('componentinfo', info)
+  }, [])
 
 
 
@@ -42,7 +44,7 @@ export default function DynamicComponent({ info }: any) {
   else if (isSuccess && componentInfo.length && componentInfo[0].componentName === 'Grid') {
     return (
       <Box padding={2} sx={{ display: 'flex', flexDirection: 'column' }}>
-        <MasterGrid structure={componentInfo} SubjectCaption={info.caption}  />
+        <MasterGrid structure={componentInfo} SubjectCaption={info.caption} />
       </Box>
     )
   }

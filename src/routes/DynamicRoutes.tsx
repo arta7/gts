@@ -23,11 +23,11 @@ import HumanCapitalDashboard from '../pages/DashboardHome/HumanCapitalDashboard/
 
 
 export const dynamicRoutes = (result: any) => {
-  result = result.sort((a: any, b: any) => a.system.sortOrder > b.system.sortOrder ? 1 : -1);
+  result = result?.sort((a: any, b: any) => a.system.sortOrder > b.system.sortOrder ? 1 : -1);
   openDefaultSystem();
-  console.log(result)
+  console.log('load data ',result)
 
-  return result.map((item: any) => {
+  return result?.map((item: any) => {
     const system = item.system
     let _item: SideBarItemType = {
       title: system.caption,
@@ -41,16 +41,16 @@ export const dynamicRoutes = (result: any) => {
       _item.path = system.routPath
       _item.fullPath = `${baseUrl}/${system.routPath}`
     }
-    if (!system.subSystems || system.subSystems.length == 0) {
+    if (!system.subSystems || system.subSystems?.length == 0) {
       item.element = <DynamicComponent info={system} />
     } else {
-      _item.children = system.subSystems.map((subItem: any) => {
+      _item.children = system.subSystems?.map((subItem: any) => {
         let _subItem: SideBarItemType = {
           title: subItem.caption,
           path: subItem.routPath,
           fullPath: `${_item.fullPath}/${subItem.routPath}`,
         }
-        if (!subItem.children || subItem.children.length == 0) {
+        if (!subItem.children || subItem.children?.length == 0) {
           if (subItem.routPath == "Activities") {
             _subItem.element = <Outlet />
             _subItem.children = [
@@ -87,7 +87,7 @@ export const dynamicRoutes = (result: any) => {
             ]
           }
         } else {
-          _subItem.children = subItem.children.map((leaf: any) => {
+          _subItem.children = subItem.children?.map((leaf: any) => {
             let leafItem: any = {
               title: leaf.caption,
               path: `${leaf.routPath}`,
@@ -149,8 +149,8 @@ export const dynamicRoutes = (result: any) => {
   })
 
   function openDefaultSystem() {
-    const systems = result.filter((s: { system: { code: string } }) => s.system.code.indexOf("S") == 0)
-    if (systems.length == 1) {
+    const systems = result?.filter((s: { system: { code: string } }) => s.system.code.indexOf("S") == 0)
+    if (systems?.length == 1) {
       window.history.pushState(null, '', `${baseUrl}/${systems[0].system.routPath}`)
     }
   }

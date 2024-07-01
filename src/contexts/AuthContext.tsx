@@ -82,13 +82,19 @@ const AuthContext = createContext(null)
 function AuthProvider({ children }: any) {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
   const token = window.localStorage.getItem('accessToken')
+  var UserId = window.localStorage.getItem('user');
   const getDynamicmenus = async () => {
     try {
+      //console.log('UserId',JSON.parse(UserId)?.id)
       if (token) {
-        const response = await axios.get('base/v1/api/system/inquiry', {
+        const parsedUserId = JSON.parse(UserId as any);
+        const entityToSave = parsedUserId ? { UserId: parsedUserId.id } : {};
+        const response = await axios.post('base/v1/api/system/inquiry2',entityToSave, {
           headers: { authorization: `bearer ${token}` },
         })
+        console.log('response',response.data)
         const { result } = response.data
+
         dispatch({
           type: 'GETMENUS',
           payload: {
@@ -97,6 +103,7 @@ function AuthProvider({ children }: any) {
         })
       }
     } catch (error:any) {
+      console.log('error login ',error )
 
     }
   }

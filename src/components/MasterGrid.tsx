@@ -26,22 +26,24 @@ export default function MasterGrid({ structure,SubjectCaption }: any) {
   const navigate = useNavigate()
 
   const loadData = () =>
+   
     axios
       .post(url, {
         componentId: componentInfo.id,
       })
       .then((response: any) => {
+        // console.log('componentInfo.id grid',componentInfo.id)
        
         if (!response.data.result) {
           toast.error(inValidResponseFormatGridRows)
           return []
         }
-        console.log('response.data.result',response.data.result)
+        console.log('response.data.result grid',response.data.result)
         return response.data.result
       })
 
   React.useEffect(() => {
-    console.log('componentInfo.fields',componentInfo.fields)
+    console.log('componentInfo.fields',componentInfo)
     run(loadData())
   }, [componentInfo])
 
