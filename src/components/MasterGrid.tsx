@@ -7,7 +7,8 @@ import { useAsync } from '../hooks/useAsync'
 import { inValidResponseFormatGridRows } from '../utils/Messages'
 import Grid from './grid/Grid'
 import useConfirmDialog from './ConfirmDialog/UseConfirmDialog'
-import AttachmentModal from './AttachmentModal'
+import AttachmentModal from './AttachmentModal';
+import { useAuth } from './../contexts/AuthContext';
 
 export default function MasterGrid({ structure,SubjectCaption }: any) {
   const hasAttachment = structure?.hasAttachment||true;
@@ -24,12 +25,14 @@ export default function MasterGrid({ structure,SubjectCaption }: any) {
   const { confirm } = useConfirmDialog();
   const url = '/gts/v1/api/component-data/fetch'
   const navigate = useNavigate()
-
-  const loadData = () =>
+  const { user  } = useAuth()
+  const UserValue= user as any;
+  const loadData = () => 
    
     axios
       .post(url, {
         componentId: componentInfo.id,
+        userId:UserValue?.id 
       })
       .then((response: any) => {
         // console.log('componentInfo.id grid',componentInfo.id)
@@ -41,6 +44,8 @@ export default function MasterGrid({ structure,SubjectCaption }: any) {
         console.log('response.data.result grid',response.data.result)
         return response.data.result
       })
+    
+    
 
   React.useEffect(() => {
     console.log('componentInfo.fields',componentInfo)
