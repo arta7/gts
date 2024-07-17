@@ -9,6 +9,7 @@ import useConfirmDialog from '../ConfirmDialog/UseConfirmDialog'
 import { error } from 'console'
 import { getServerError } from '../../utils/axios'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function TabGrid(props: any) {
   const {
@@ -33,6 +34,8 @@ export default function TabGrid(props: any) {
   const url = '/gts/v1/api/component-data/fetch'
   const { id: idparam }: any = useParams()
    const { confirm } = useConfirmDialog();
+   const { user  } = useAuth()
+  const UserValue= user as any;
   const fetchData = async () => {
     if (sectionId != undefined) {
       axios
@@ -40,6 +43,7 @@ export default function TabGrid(props: any) {
           componentId: sectionId,
           masterId: masterId,
           masterParentId: masterParentId,
+          userId:UserValue?.id 
         })
         .then((response) => {
           const data = response.data.result as any
@@ -56,6 +60,7 @@ export default function TabGrid(props: any) {
           componentId: sectionId,
           masterId: masterId,
           masterParentId: masterParentId,
+          userId:UserValue?.id 
         })
         .then((response) => {
           const data = response.data.result as any

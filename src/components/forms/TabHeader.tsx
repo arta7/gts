@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { theme } from '../../contexts/ThemeContext'
 import { toast } from 'react-toastify'
 import { getServerError } from '../../utils/axios'
+import { useAuth } from '../../contexts/AuthContext'
 
 export const TabHeader = (props: any) => {
   const { fields, sectionId, subId } = props
@@ -12,14 +13,17 @@ export const TabHeader = (props: any) => {
 
   const [headerData, setHeaderData] = useState()
   let [loading, setLoading] = useState(true)
-  const { id: idparam }: any = useParams()
+  const { id: idparam }: any = useParams();
+  const { user  } = useAuth()
+  const UserValue= user as any;
   React.useEffect(() => {
     if (idparam != 0) {
       if (sectionId != undefined) {
         axios
           .post(url, {
             componentId: `${sectionId}`,
-            masterParentId:`${idparam}`
+            masterParentId:`${idparam}`,
+            userId:UserValue?.id 
           })
           .then((response) => {
             const data = response.data.result as any

@@ -51,7 +51,7 @@ const LoginConfigForm = ({ config }: { config: LoginConfig }) => {
     const onSubmit = () => {
         const entityToSave = { ...getValues(), ...state };
         entityToSave.S00_loginPageSlider = state.S00_loginPageSlider.map((item: any) => ({ sliderImage: item }))
-        console.log('OnSubmit ', entityToSave);
+        console.log('OnSubmit ', entityToSave.S00_loginPageSlider);
         axios.post(`/gts/v1/api/base/login-page-info/create`, { json: `${JSON.stringify(entityToSave)}` }).then(() => {
             toast.success('تنظیمات لاگین با موفقیت ثبت شد')
             navigate(`${baseUrl}/`)

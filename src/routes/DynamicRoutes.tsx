@@ -146,7 +146,9 @@ export const dynamicRoutes = (result: any) => {
       })
     }
     return _item
-  })
+  }
+  
+)
 
   function openDefaultSystem() {
     const systems = result?.filter((s: { system: { code: string } }) => s.system.code.indexOf("S") == 0)

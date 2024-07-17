@@ -11,6 +11,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 import { Dropdown } from 'react-bootstrap';
 import { serverError } from "../../utils/Messages";
+import { useAuth } from '../../contexts/AuthContext'
 const getServerError=(error:any)=>`${serverError} (${error.code})`;
 const FormSection = (props: any) => {
   const {
@@ -30,7 +31,8 @@ const FormSection = (props: any) => {
   const [initialState, setInitialState] = useState({})
   const url = '/gts/v1/api/component-data/fetch'
   const createUrl = '/gts/v1/api/component-data/create'
-
+  const { user  } = useAuth()
+  const UserValue= user as any;
   useEffect(() => {
     if (fields.length) {
       fields.forEach((fi: any) => {
@@ -74,6 +76,7 @@ const FormSection = (props: any) => {
           .post(url, {
             componentId: sectionId,
             masterId: idparam,
+            userId:UserValue?.id 
           })
           .then((response) => {
             const data = response.data.result as any
