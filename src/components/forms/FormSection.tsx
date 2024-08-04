@@ -156,15 +156,18 @@ const FormSection = (props: any) => {
           setInObject(state, fi.aliasName, _v)
         }
       })
+      console.log('state 2',state)
     if (idparam == 0) {
       if (
         Object.keys(state).length ===
         fields.filter((i: any) => i.useInSaveMethod === true).length
       ) {
+        console.log('state',state)
         axios
           .post(createUrl, {
             componentId: sectionId,
             json: `${JSON.stringify(state)}`,
+            UserId:UserValue?.id 
           })
           .then((res: any) => {
             if (res.data.detail) {
@@ -180,6 +183,8 @@ const FormSection = (props: any) => {
             setId(res.data.result[0].masterId)
             setTabValue(tabValue + 1)
             setControl(false)
+          }).catch((error)=>{
+            console.log('error',error)
           })
       }
     } else if (idparam != 0) {
@@ -187,10 +192,12 @@ const FormSection = (props: any) => {
         Object.keys(state).length ===
         fields.filter((i: any) => i.useInSaveMethod === true).length
       ) {
+        console.log('state',state)
         axios
           .post(createUrl, {
             componentId: sectionId,
             json: `${JSON.stringify(state)}`,
+            UserId:UserValue?.id 
           })
           .then((res: any) => {
             if (res.data.detail) {
@@ -204,6 +211,8 @@ const FormSection = (props: any) => {
             } 
             setTabValue(tabValue + 1)
             setControl(false)
+          }).catch((error)=>{
+            console.log('error',error)
           })
       }
     }

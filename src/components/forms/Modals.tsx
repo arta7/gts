@@ -19,6 +19,7 @@ import HRMSwal from '../../utils/Swal'
 import { Dropdown } from 'react-bootstrap';
 import { getFromObject, setInObject } from '../../utils/helpers'
 import { getServerError } from '../../utils/axios'
+import { useAuth } from '../../contexts/AuthContext'
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -52,7 +53,7 @@ export default function Modals({
   const [initialState, setInitialState] = useState({})
 
   if (Object.keys(initialData).length) {
-    console.log('fields : ',fields)
+    console.log('fields 1 : ',fields)
    if (fields.length) {
      fields.forEach((fi: any) => {
        if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -89,7 +90,7 @@ export default function Modals({
 
   useEffect(() => {
    if (Object.keys(initialData).length) {
-    console.log('fields : ',fields)
+    console.log('fields 2 : ',fields)
    if (fields.length) {
      fields.forEach((fi: any) => {
        if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -144,6 +145,8 @@ export default function Modals({
   const createUrl = '/gts/v1/api/component-data/create'
   const watchAllFields = watch()
   const [watchField, setWatchField]: any = useState()
+  const { user  } = useAuth()
+  const UserValue= user as any;
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       setControl(name ? true : false)
@@ -252,11 +255,12 @@ export default function Modals({
           Object.keys(state).length ===
           fields.filter((i: any) => i.useInSaveMethod === true).length
         ) {
-           console.log('JSON.stringify(state) 1 => ',JSON.stringify(state))
+           console.log('JSON.stringify(state) 1 => ',state)
           axios
             .post(createUrl, {
               componentId: sectionId,
               json: `${JSON.stringify(state)}`,
+              UserId:UserValue?.id 
             })
             .then((res) => {
               if (res.data.detail) {
@@ -288,6 +292,7 @@ export default function Modals({
             .post(createUrl, {
               componentId: sectionId,
               json: `${JSON.stringify(state)}`,
+              UserId:UserValue?.id 
             })
             .then((res) => {
               if (res.data.detail) {

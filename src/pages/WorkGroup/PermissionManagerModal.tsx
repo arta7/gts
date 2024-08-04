@@ -89,6 +89,7 @@ const PermissionManagerModal = ({ onClose, open, entity, webService }: any) => {
             let pro = createPermissions()
             pro.then((response1) => {
                 onClose(true);
+                toast.success('اطلاعات پرونده با موفقیت ثبت شد')
             });
 
         });
