@@ -36,7 +36,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
 
     const loadData = () => {
         setLoading(true)
-        console.log('url : => ',url)
+        console.log('url : => ',loadDataByPostMethod)
         if (!loadDataByPostMethod) {
             return axios.get(url).then((res) => {
                 console.log('res :=>',res)
@@ -51,6 +51,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
                     setValue(selected)
                 }
             }).catch((err: any) => {
+                console.log('error',err)
                 setLoading(false)
                 if (firstLoad) {
                     setFirstLoad(false)
@@ -75,6 +76,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
                 }
             });
         }
+
     }
 
     React.useEffect(() => {
@@ -85,6 +87,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
 
 
     React.useEffect(() => {
+
         if ((open)) {
             loadData();
         }
@@ -98,6 +101,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
             
             value={value}
             onChange={(event: any, newValue: Option | null) => {
+                 console.log('id',newValue)
                 setValue(newValue)
                 if (setFilterValue) {
                    setFilterValue(newValue?.id) 
@@ -105,6 +109,7 @@ export default function AsyncCombo(props: AsyncComboProps) {
                 if (onChange) {
                     onChange(newValue?.id || null);
                 }
+                console.log('tets')
             }}
             open={open}
             onOpen={() => {

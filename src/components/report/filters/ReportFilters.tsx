@@ -15,20 +15,24 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
     const [componentIdValue,setIdValue]=useState()
     const [bodyJson,setBodyJson] = useState({})
   useEffect(() => {
+    console.log('subValue',user)
         if (subValue && componentIdValue) {
             setBodyJson ( {
                 json: `{"DataKey":"StatisticsReportCategory","componentId":${componentIdValue},"subSystemId":${subValue}}`,
                 //@ts-ignore 
-                userId: user && user?.id,
+                // userId: user && user?.id,
                 //@ts-ignore 
-                workgroupId: user && user?.workgroups[0].workgroupId,
+               // workgroupId: user && user?.workgroups[0]?.workgroupId,
                 //@ts-ignore 
-                organizationId: user && user?.workgroups[0].organizations[0].organizationId,
+              //  organizationId: user && user?.workgroups[0]?.organizations[0]?.organizationId,
                 //@ts-ignore 
-                isManager: user && user?.workgroups[0].isManager,
+               // isManager: user && user?.workgroups[0]?.isManager,
                 PageSize: 0,
                 PageNumber: 0
             })
+
+      
+
         }
     },[subValue,componentIdValue])
     

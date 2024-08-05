@@ -97,37 +97,41 @@ const StatisticsReport = ({ systemId,title }: any) => {
   
 
   const loaderReportData = (values:any) => {
-    console.log('test value =>',{
-      subSystemId: values.subSystemId,
-      statisticsReportId: values.specificReportId,
-        //@ts-ignore 
-      userId: user && user?.id,
-        //@ts-ignore 
-      workgroupId: user && user?.workgroups[0].workgroupId,
-        //@ts-ignore 
-      organizationId: user && user?.workgroups[0].organizations[0].organizationId,
-        //@ts-ignore 
-    isManager: user && user?.workgroups[0].isManager,
-      json:`[{"componentId":${values.componentId?values.componentId:1},"year":${Number(values.year) ? Number(values.year) : -1},"organizationId":${Number(values.organizationId) ? Number(values.organizationId) : -1}}]`,
-    })
+    // console.log('test value =>',{
+    //   subSystemId: values.subSystemId,
+    //   statisticsReportId: values.specificReportId,
+    //     //@ts-ignore 
+    //   userId: user && user?.id,
+    //     //@ts-ignore 
+    //   workgroupId: user && user?.workgroups[0]?.workgroupId,
+    //     //@ts-ignore 
+    //   organizationId: user && user?.workgroups[0]?.organizations[0]?.organizationId,
+    //     //@ts-ignore 
+    // isManager: user && user?.workgroups[0]?.isManager,
+    //   json:`[{"componentId":${values.componentId?values.componentId:1},"year":${Number(values.year) ? Number(values.year) : -1},"organizationId":${Number(values.organizationId) ? Number(values.organizationId) : -1}}]`,
+    // })
+    console.log('values',values)
     axios.post(url, {
       subSystemId: values.subSystemId,
       statisticsReportId: values.specificReportId,
         //@ts-ignore 
-      userId: user && user?.id,
-        //@ts-ignore 
-      workgroupId: user && user?.workgroups[0].workgroupId,
-        //@ts-ignore 
-      organizationId: user && user?.workgroups[0].organizations[0].organizationId,
-        //@ts-ignore 
-    isManager: user && user?.workgroups[0].isManager,
-      json:`[{"componentId":${values.componentId?values.componentId:1},"year":${Number(values.year) ? Number(values.year) : -1},"organizationId":${Number(values.organizationId) ? Number(values.organizationId) : -1}}]`,
+       userId: user && user?.id,
+    //     //@ts-ignore 
+       workgroupId: null,
+    //     //@ts-ignore 
+       organizationId: values.organizationId ? Number(values.organizationId) : -1,
+    //     //@ts-ignore 
+    // isManager: user && user?.workgroups[0].isManager,
+      json:`[{"componentId":${values.componentId?values.componentId:1},"year":${Number(values.year) ? Number(values.year) : -1}
+      ,"organizationId":${Number(values.organizationId) ? Number(values.organizationId) : -1}}]`,
     }).then((res) => {
       setRows(res.data.result)
       let _columns: any = getColumns(res.data.result[0])
      let _chartData:any= getChartData(res.data.result)
       setColumns(_columns)
       setChartsData(_chartData)  
+    }).catch((error)=>{
+      console.log('error',error)
     })
     
   }
