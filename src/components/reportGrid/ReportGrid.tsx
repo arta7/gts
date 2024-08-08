@@ -80,8 +80,8 @@ const ReportGrid = ({ info, systemId }: any) => {
   }
 
   const handleMasterGridRowClicked = (row: any, index: number): void => {
-    setSelectedReport(row);
-    getReportColumns(row.id)
+     setSelectedReport(row);
+     getReportColumns(row?.id)
   }
 
   const handleCloseReportModal = (success: boolean, reportId?: number) => {
@@ -144,12 +144,13 @@ const ReportGrid = ({ info, systemId }: any) => {
   }
 
   const getGridDataParams = () => {
-    const workgroup = user.workgroups[0];
+    console.log('tets params',selectedReport)
+    //const workgroup = user?.workgroups[0];
     return {
       exclusiveReportId: selectedReport!.id,
-      userId: user.id,
-      workgroupId: workgroup.workgroupId,
-      organizationId: workgroup.organizations[0].organizationId,
+      userId: user?.id,
+      workgroupId: null,//workgroup.workgroupId,
+      organizationId: null,//  workgroup.organizations[0].organizationId,
       isManager: true /*workgroup.isManager*/
     }
   };
@@ -183,7 +184,7 @@ const ReportGrid = ({ info, systemId }: any) => {
               exportToExcel={getExcelOutput} exportable={true} />
           }
           {
-            selectedReport && <Grid addRowNumber={true} key={selectedReport.id} id={'childGrid'}
+            selectedReport && <Grid addRowNumber={true} key={selectedReport?.id} id={'childGrid'}
               columns={reportColumns} url={`${getReportDataApi}`}
               getDataParams={getGridDataParams()} exportToExcel={getExcelOutput} pageSize={5} />
           }

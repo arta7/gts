@@ -273,6 +273,7 @@ export default function Grid({
   }, [cols])
 
   const fetchData = (options: GridOptions) => {
+    console.log('gridOptions',options)
     setIsFetching(true)
     setLoadDataErrorMessage('')
     let gridOptions: GridOptions = {
@@ -290,6 +291,7 @@ export default function Grid({
     if (getDataParams) {
       gridOptions = { ...gridOptions, ...getDataParams }
     }
+  
     return axios
       .post(url, gridOptions)
       .then((response) => {
@@ -403,11 +405,13 @@ export default function Grid({
   const fetchDataOptions = { PageNumber: pageIndex, PageSize: pageSize, filters, sorting }
 
   React.useEffect(() => {
-    console.log('filters options : ', table)
+    console.log('filters options : ', serverSideGrid,'fetchDataOptions',fetchDataOptions)
     if (serverSideGrid) {
       fetchData(fetchDataOptions).then((data: any) => {
         console.log('test data', data)
         setData(data);
+      }).catch((error)=>{
+        console.log('error data', error)
       })
     }
   }, [pageSize, pageIndex, filters, sorting]);
@@ -424,12 +428,13 @@ export default function Grid({
   }
 
   const handleCellClicked = (e: any, cell: any): void => {
+    console.log('click',onRowClick)
     const { column, row } = cell;
-    if (column.id == "actions") {
+    if (column?.id == "actions") {
       return;
     }
     if (onRowClick) {
-      onRowClick(row.original, row.index);
+      onRowClick(row?.original, row?.index);
     }
   }
 
