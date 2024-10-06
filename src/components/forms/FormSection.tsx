@@ -184,7 +184,7 @@ const FormSection = (props: any) => {
             setTabValue(tabValue + 1)
             setControl(false)
           }).catch((error)=>{
-            console.log('error',error)
+            console.log('error insert',error)
           })
       }
     } else if (idparam != 0) {
@@ -192,7 +192,7 @@ const FormSection = (props: any) => {
         Object.keys(state).length ===
         fields.filter((i: any) => i.useInSaveMethod === true).length
       ) {
-        console.log('state',state)
+        console.log('user Id = > ',JSON.stringify(state) )
         axios
           .post(createUrl, {
             componentId: sectionId,
@@ -212,7 +212,7 @@ const FormSection = (props: any) => {
             setTabValue(tabValue + 1)
             setControl(false)
           }).catch((error)=>{
-            console.log('error',error)
+            console.log('error update',error)
           })
       }
     }
