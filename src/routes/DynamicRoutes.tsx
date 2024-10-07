@@ -20,6 +20,7 @@ import StatisticsReport from '../pages/reports/Reports'
 import ReportGrid from '../components/reportGrid/ReportGrid'
 import MyActivities from '../pages/myActivities/MyActivities'
 import HumanCapitalDashboard from '../pages/DashboardHome/HumanCapitalDashboard/HumanCapitalDashboard'
+import SignUp from '../components/auth/SignUp'
 
 
 export const dynamicRoutes = (result: any) => {
@@ -124,6 +125,9 @@ export const dynamicRoutes = (result: any) => {
             }
             else if (leaf.routPath == 'StatisticsReport') {
               leafItem.element = <StatisticsReport systemId={system.id} title={leaf.caption} />
+            }
+            else if (leaf.routPath == "SignUp") {
+              leafItem.element = <SignUp />
             }
             else {
               leafItem.children = [

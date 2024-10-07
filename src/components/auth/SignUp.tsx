@@ -103,7 +103,7 @@ const SignUp = (props: any) => {
      signup()
 },[confirm])
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    // <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Grid
         container
         component={Paper}
@@ -415,7 +415,7 @@ const SignUp = (props: any) => {
           </Grid>
         </form>
       </Grid>
-    </Dialog>
+    // </Dialog>
   )
 }
 export default SignUp
