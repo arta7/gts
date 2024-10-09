@@ -280,11 +280,11 @@ export default function Grid({
       PageNumber: pageIndex,
       PageSize: pageSize,
     }
-    if (filters.length) {
+    if (filters?.length) {
 
       gridOptions.filters = options.filters
     }
-    if (sorting.length) {
+    if (sorting?.length) {
       gridOptions.sorting = options.sorting
     }
 
@@ -301,7 +301,7 @@ export default function Grid({
         let rows: Array<any> = [];
         let pageCount = 0;
         let rowsCount = 0;
-        if (data.length) {
+        if (data?.length) {
           rows = data;
           pageCount = Math.ceil(data[0].RowsCount / pageSize);
           rowsCount = data[0].RowsCount;
@@ -350,7 +350,7 @@ export default function Grid({
     options.onColumnFiltersChange = (filterValue: any) => {
       console.log('filter value : ', (filterValue))
       table.setPageIndex(0)
-      if (filterValue().length > 0) {
+      if (filterValue()?.length > 0) {
         if (typeof (filterValue()[0].value) != 'object') {
           setColumnFilters(filterValue)
         }
@@ -422,7 +422,7 @@ export default function Grid({
   //   }
   // }, [isDataStale])
 
-  let columnCount = table.getAllFlatColumns().length + 1
+  let columnCount = table.getAllFlatColumns()?.length + 1
   if (addRowNumber) {
     columnCount += 1
   }
@@ -448,7 +448,7 @@ export default function Grid({
           enableColumnVisibility={enableColumnVisibility}
           showRowsCount={showRowsCount}
           exportable={exportable}
-          rowsCount={serverSideGrid ? rowsCount : rows.length}
+          rowsCount={serverSideGrid ? rowsCount : rows?.length}
           exportToExcel={exportToExcel}
           SubjectCaption={SubjectCaption}
         />
@@ -481,7 +481,7 @@ export default function Grid({
             )}
             {!isFetching &&
               !loadDataErrorMessage &&
-              table.getRowModel().rows.length == 0 && (
+              table.getRowModel().rows?.length == 0 && (
                 <TableRow>
                   <TableCell colSpan={columnCount}>
                     {'رکوردی وجود ندارد'}
@@ -514,7 +514,7 @@ export default function Grid({
                                 cell.column.columnDef.cell,
                                 cell.getContext()
                               )}{' '}
-                              ({row.subRows.length})
+                              ({row.subRows?.length})
                             </>
                           ) : cell.getIsPlaceholder() ? null : (
                             flexRender(

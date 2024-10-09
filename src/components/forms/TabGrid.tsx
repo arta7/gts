@@ -151,8 +151,8 @@ const handleClose = () => setOpenAttachment(false);
 }
 function getGridColumns(fields: any) {
   const columns = fields
-    .filter((field: any) => field.isVisible === true)
-    .map((field: any) => {
+    ?.filter((field: any) => field.isVisible === true)
+    ?.map((field: any) => {
       const colInfo: any = {
         accessorKey: field.aliasName,
         header: field.fieldCaption,

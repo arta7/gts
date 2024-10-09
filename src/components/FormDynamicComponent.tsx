@@ -18,7 +18,10 @@ export default function FormDynamicComponent({ info }: any) {
         )}&componentId=${searchParams.get('componentId')}`,
       )
       .then((response) => {
-        console.log('check data  : ',response.data.result)
+        
+        console.log('check data  : ',`${searchParams.get(
+          'subId',
+        )}&componentId=${searchParams.get('componentId')}`)
         setComponentInfo(response.data.result)
       })
   }, [])
@@ -27,7 +30,7 @@ export default function FormDynamicComponent({ info }: any) {
     return <GridLoader color="#36d7b7" />
   }
 
-  if (componentInfo.length >= 0) {
+  if (componentInfo?.length >= 0) {
     return <GTSForm formStructure={componentInfo} />
   }
   return (

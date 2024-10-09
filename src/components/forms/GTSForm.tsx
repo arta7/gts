@@ -74,16 +74,16 @@ const GTSForm = (props: any) => {
     if (id != 0) {
       setParentId(id)
     }
-    if (formStructure.length) {
+    if (formStructure?.length) {
       setStructure(getStructure(formStructure))
-      if (structure.length) {
+      if (structure?.length) {
         setCurrentPage(structure[0])
       }
     }
   }, [])
   useEffect(() => {
-    if (structure.length) {
-      setHeader(structure.find((i: any) => i.componentName === 'Header'))
+    if (structure?.length) {
+      setHeader(structure?.find((i: any) => i.componentName === 'Header'))
     }
   }, [structure])
   const navigate = useNavigate()
@@ -103,7 +103,7 @@ const GTSForm = (props: any) => {
       })
     }
   } //@ts-ignore
-  if (!structure.length) {
+  if (!structure?.length) {
     return <Spinner />
   }
   return (
@@ -163,8 +163,8 @@ const GTSForm = (props: any) => {
           }}
         >
           {structure
-            .filter((i: any, ind) => i.componentName !== 'Header')
-            .map((section: any, index: any) => (
+            ?.filter((i: any, ind) => i.componentName !== 'Header')
+            ?.map((section: any, index: any) => (
               <Tab
                 disabled={index != 0 && !masterParentId && true}
                 label={section.caption}
@@ -192,8 +192,8 @@ const GTSForm = (props: any) => {
             ))}
         </Tabs>
         {structure
-          .filter((i: any, ind) => i.componentName !== 'Header')
-          .map((section: any, index: any) => {
+          ?.filter((i: any, ind) => i.componentName !== 'Header')
+          ?.map((section: any, index: any) => {
             return (
               <TabPanel value={value} index={index} key={section.id}>
                 {header && (
@@ -203,40 +203,42 @@ const GTSForm = (props: any) => {
                     subId={header.parentId}
                   />
                 )}
-                {section.componentName === 'TabGrid' ? (
+                {section?.componentName === 'TabGrid' ? (
                   <TabGrid
-                    key={section.id}
+                    key={section?.id}
                     tabValue={value}
                     hasAttachment={section?.hasAttachment}
                     setTabValue={setValue}
-                    fields={section.fields}
+                    fields={section?.fields}
                     setControl={setControl}
-                    sectionId={section.id}
-                    subId={section.subSystemId}
+                    sectionId={section?.id}
+                    subId={section?.subSystemId}
                     masterParentId={masterParentId}
                     masterId={masterId}
                     setParentId={setParentId}
                     setId={setId}
-                    sectionCaption={section.caption}
-                    componentName={section.componentName}
+                    sectionCaption={section?.caption}
+                    componentName={section?.componentName}
                   />
-                ) : (
+                ) 
+                : (
                    
                   <FormSection
-                    key={section.id}
+                    key={section?.id}
                     tabValue={value}
                     setTabValue={setValue}
                     setControl={setControl}
-                    fields={section.fields}
-                    sectionId={section.id}
-                    subId={section.subSystemId}
+                    fields={section?.fields}
+                    sectionId={section?.id}
+                    subId={section?.subSystemId}
                     masterParentId={masterParentId}
                     masterId={masterId}
                     setParentId={setParentId}
                     setId={setId}
-                    componentName={section.componentName}
+                    componentName={section?.componentName}
                   />
-                )}
+                )
+                }
               </TabPanel>
             )
           })}

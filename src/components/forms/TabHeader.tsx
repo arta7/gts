@@ -47,8 +47,8 @@ export const TabHeader = (props: any) => {
       }}
     >
       {fields
-        .filter((fi: any) => fi.isVisible === true)
-        .map((field: any) => {
+        ?.filter((fi: any) => fi.isVisible === true)
+        ?.map((field: any) => {
           let value = headerData ? headerData[field.aliasName] : ''
           return (
             <Grid

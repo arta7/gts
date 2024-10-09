@@ -34,14 +34,14 @@ const FormSection = (props: any) => {
   const { user  } = useAuth()
   const UserValue= user as any;
   useEffect(() => {
-    if (fields.length) {
-      fields.forEach((fi: any) => {
+    if (fields?.length) {
+      fields?.forEach((fi: any) => {
         if (fi.uiComponentType === 'MultiSelectDropDown') {
           const _v: any =
             initialData && Object.keys(initialData).length
               ? getFromObject(initialData, fi.aliasName)
               : []
-          const valueSelectMulti = _v.map((item: any) => {
+          const valueSelectMulti = _v?.map((item: any) => {
             return item[fi.valueIndicator || 'value']
           })
           setInObject(initialState, fi.aliasName, {
@@ -102,7 +102,7 @@ const FormSection = (props: any) => {
     if (watchField) {
       if (watchField.uiComponentType === Dropdown && watchField.masterFieldId) {
         //@ts-ignore
-        setValue(watchField.aliasName, "")
+        setValue(watchField?.aliasName, "")
       }
     }
   }, [watchField])
@@ -110,8 +110,8 @@ const FormSection = (props: any) => {
   const onSubmit = (data: any) => {
     let state = {}
     fields
-      .filter((i: any) => i.useInSaveMethod === true)
-      .forEach((fi: any) => {
+      ?.filter((i: any) => i.useInSaveMethod === true)
+      ?.forEach((fi: any) => {
         if (fi.aliasName.includes('subSystemId')) {
           setInObject(state, fi.aliasName, subId)
         } else if (fi.aliasName.includes('componentId')) {
@@ -121,7 +121,7 @@ const FormSection = (props: any) => {
             data && Object.keys(data).length
               ? getFromObject(data, fi.aliasName)
               : []
-          const valueSelectMulti = _v.map((item: any) => {
+          const valueSelectMulti = _v?.map((item: any) => {
             return item[fi.valueIndicator || 'value']
           })
           setInObject(state, fi.aliasName, {
@@ -226,14 +226,14 @@ const FormSection = (props: any) => {
           width: '100%',
         }}
       >
-        {fields.map((field: any) => {
-          const Component = field.Component ? field.Component : Input
+        {fields?.map((field: any) => {
+          const Component = field?.Component ? field?.Component : Input
           return (
             <Component
               {...field}
               masterFieldAliasName={field.S00_field[0]?.masterFieldAliasName}
               control={control}
-              key={field.aliasName}
+              key={field?.aliasName}
               defaultValues={initialData}
               formState={formState}
               componentName={componentName}
@@ -241,7 +241,7 @@ const FormSection = (props: any) => {
               getValues={getValues}
               errors={formState.errors}
               register={register}
-              isReadOnly={field.isReadOnly}
+              isReadOnly={field?.isReadOnly}
             />
           )
         })}
