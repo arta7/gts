@@ -66,7 +66,7 @@ const GTSForm = (props: any) => {
   const [tabControl, setControl] = useState(false)
   let [header, setHeader]: any = useState()
   const { id }: any = useParams()
-  const [masterParentId, setParentId] = useState()
+  const [masterParentId, setParentId] = useState(0)
   const [masterId, setId] = useState()
   
   useEffect(() => {
@@ -83,6 +83,7 @@ const GTSForm = (props: any) => {
   }, [])
   useEffect(() => {
     if (structure?.length) {
+      console.log('structure = > ',structure)
       setHeader(structure?.find((i: any) => i.componentName === 'Header'))
     }
   }, [structure])
