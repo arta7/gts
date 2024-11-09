@@ -10,7 +10,7 @@ import 'react-slideshow-image/dist/styles.css'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { useAuth } from '../../contexts/AuthContext'
-import { Alert, IconButton, OutlinedInput } from '@mui/material'
+import { Alert, IconButton, Modal, OutlinedInput } from '@mui/material'
 import Captcha, { captchaList } from '../Captcha'
 import CachedTwoToneIcon from '@mui/icons-material/CachedTwoTone'
 import baseUrl from '../../utils/Util'
@@ -64,6 +64,7 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
           } catch (error) {
             //@ts-ignore
             const message = error.response.data.result.message || 'خطای غیر منتظره'
+            console.log('error.response.data.result.message',message)
             toast.error(message)
             setStatus({ success: false })
             setErrors({ submit: message })
@@ -218,9 +219,27 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
             >
               <Typography sx={{ fontSize: '1rem' }}> ورود به سامانه</Typography>
             </Button>
+            
+           
+            <Button
+                // variant="text"
+                onClick={() => {
+                  setOpen(true)
+                }}
+                sx={{ width: '150px', padding: '0.6rem',marginRight:5,marginLeft:5 }}
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+              >
+                ثبت نام 
+              </Button>
+              
           </Grid>
           {open && (
+          
             <SignUp open={open} onClose={handleCloseModal} setOpen={setOpen} />
+          
           )}
         </Box>
       )}

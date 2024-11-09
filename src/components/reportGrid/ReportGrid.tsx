@@ -156,16 +156,16 @@ const ReportGrid = ({ info, systemId }: any) => {
   };
 
   const getExcelOutput = (PageNumber: number, PageSize: number) => {
-    exportToExcel({ ...getGridDataParams(), PageNumber, PageSize })
-      .then((data) => {
-        let alink = document.createElement('a');
-        alink.href = ExcelMediaType + data;
-        alink.download = `${selectedReport?.title}.xlsx`;
-        alink.click();
-      })
-      .catch((err: any) => {
-        toast.error('خطا در گزارش اکسل');
-      })
+    // exportToExcel({...getGridDataParams(), PageNumber, PageSize })
+    //   .then((data) => {
+    //     let alink = document.createElement('a');
+    //     alink.href = ExcelMediaType + data;
+    //     alink.download = `${selectedReport?.title}.xlsx`;
+    //     alink.click();
+    //   })
+    //   .catch((err: any) => {
+    //     toast.error('خطا در گزارش اکسل');
+    //   })
   }
 
   return (

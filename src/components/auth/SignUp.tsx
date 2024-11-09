@@ -20,6 +20,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import OtpModal from '../../pages/sejamConfirmation/OtpModal'
 import SignUpMessageConfirm from './SignupMessageConfirm'
 import useCountdown from '../../hooks/useCountDown'
+import { Dropdown } from 'react-bootstrap';
+import AsyncComboInput from '../inputs/AsyncComboInput'
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -103,7 +105,7 @@ const SignUp = (props: any) => {
      signup()
 },[confirm])
   return (
-    // <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Grid
         container
         component={Paper}
@@ -234,6 +236,17 @@ const SignUp = (props: any) => {
               />
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
+              
+            <AsyncComboInput
+           control={control}  name={'OrganizationType'} label='نوع شرکت' 
+             url={`base/v1/api/component/get-dropdown-data?uiComponentId=2730`}
+            getOptionLabel={(option: any) => option.name}
+            variant='outlined'
+                     // setFilterValue={setValue}
+                      
+          />
+        </Grid>
+            {/* <Grid item xs={12} sm={6} md={6}>
               <Controller
                 name="userName"
                 rules={{
@@ -258,7 +271,7 @@ const SignUp = (props: any) => {
                   />
                 )}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={12} md={12}>
               <Controller
                 name="email"
@@ -285,7 +298,7 @@ const SignUp = (props: any) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            {/* <Grid item xs={12} sm={6} md={6}>
               <Controller
                 name="password"
                 rules={{
@@ -313,8 +326,8 @@ const SignUp = (props: any) => {
                   />
                 )}
               />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            </Grid> */}
+            {/* <Grid item xs={12} sm={6} md={6}>
               <Controller
                 name="rePassword"
                 rules={{
@@ -343,7 +356,7 @@ const SignUp = (props: any) => {
                   />
                 )}
               />
-            </Grid>
+            </Grid> */}
             <Grid
               xs={12}
               sm={12}
@@ -415,7 +428,7 @@ const SignUp = (props: any) => {
           </Grid>
         </form>
       </Grid>
-    // </Dialog>
+     </Dialog>
   )
 }
 export default SignUp

@@ -161,6 +161,7 @@ function AuthProvider({ children }: any) {
       })
       getDynamicmenus()
     }catch (error: any) {
+      console.log('error.response ',error.response)
       if (error && error.response.status === 401) {
         let errors;
         errors = error.response.data.result.message
