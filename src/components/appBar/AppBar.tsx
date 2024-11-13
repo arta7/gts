@@ -13,7 +13,7 @@ import Badge, { BadgeProps } from '@mui/material/Badge'
 import { Stack } from '@mui/material'
 import AccountMenu from './AccountMenu'
 import { useAuth } from '../../contexts/AuthContext'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate  } from 'react-router-dom'
 import { useEffect } from 'react'
 import { theme } from '../../contexts/ThemeContext';
 import baseUrl from '../../utils/Util'

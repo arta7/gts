@@ -7,11 +7,12 @@ type AsyncComboInput = {
     name: string
     label: string
     rules?: ControllerProps['rules']
-    required?: boolean
+    required?: boolean,
+    UserValue:any
     
 }
 
-const AsyncComboInput = ({ control, name, rules, required,setFilterValue, ...rest }: AsyncComboInput & AsyncComboProps) => {
+const AsyncComboInput = ({ control, name, rules, required,setFilterValue,UserValue, ...rest }: AsyncComboInput & AsyncComboProps) => {
     const validationRules: ControllerProps['rules'] = {
         ...rules,
         ...(required && {
@@ -27,7 +28,7 @@ const AsyncComboInput = ({ control, name, rules, required,setFilterValue, ...res
                
 
                 return <AsyncCombo   {...rest} setFilterValue={setFilterValue}
-                value={value} onChange={onChange}     required={required} error={!!error} helperText={error ? error.message : ''} />
+                value={value} onChange={onChange}  UserValue={UserValue}   required={required} error={!!error} helperText={error ? error.message : ''} />
             }} />
     )
 }

@@ -34,6 +34,8 @@ const SignUpMessageConfirm = ({
       const response = await axios.post(`messageing/v1/api/submit`,{
         cellPhoneNumber: Number(phoneNumber)
       },{ headers: { authorization: `bearer ${token}` } })
+
+      console.log('response message',response)
     } catch (error) {
       //@ts-ignore
       const message = error.response.data.result.message || 'خطای غیر منتظره'

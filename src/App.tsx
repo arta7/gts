@@ -17,6 +17,7 @@ export default function App() {
   useEffect(() => {
     axios.get(`/gts/v1/api/base/login-page-info/fetch`).then((res) => {
       const result: any = res.data.result;
+      console.log('login page info',result)
       if (result && result.length) {
         setLoginConfig(res.data.result[0]);
       }

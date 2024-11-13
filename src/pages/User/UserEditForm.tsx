@@ -60,6 +60,7 @@ export default function UserEditForm({ onClose, open, entity, webService }: any)
                 rules={{ required: true }}
                 value={filterValue}
                 setFilterValue={setfilterValue}    
+                UserValue={null}
               />
 
             </Grid>

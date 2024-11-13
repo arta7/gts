@@ -7,7 +7,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { CSRFProvider } from './contexts/CSRFContext'
 import './utils/axios'
 import reportWebVitals from '../reportWebVitals'
-
+import { HashRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,7 +27,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <CustomTheme>
             <LocalizationProvider dateAdapter={AdapterDateFnsJalali}>
               <AuthProvider>
+       
                 <App />
+           
               </AuthProvider>
             </LocalizationProvider>
           </CustomTheme>

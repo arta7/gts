@@ -23,11 +23,12 @@ export type AsyncComboProps = {
     variant?: 'filled' | 'outlined' | 'standard',
     required?:boolean
     setFilterValue?: any
-    disabled?:boolean
+    disabled?:boolean,
+    UserValue:any
 };
 
 export default function AsyncCombo(props: AsyncComboProps) {
-    const { label, value:defautValue, onChange, url, helperText, error,setFilterValue,disabled, getOptionLabel ,variant,required,loadDataByPostMethod,body} = props;
+    const { label, value:defautValue, onChange, url, helperText, error,setFilterValue,disabled, getOptionLabel ,variant,required,loadDataByPostMethod,body,UserValue} = props;
     const [open, setOpen] = useState(false);
     const [options, setOptions] = React.useState<readonly Option[]>([]);
     const [value, setValue] = React.useState<Option | null>(null);
@@ -37,6 +38,8 @@ export default function AsyncCombo(props: AsyncComboProps) {
     const loadData = () => {
         setLoading(true)
         console.log('url : => ',loadDataByPostMethod)
+        if(url != '')
+        {
         if (!loadDataByPostMethod) {
             return axios.get(url).then((res) => {
                 console.log('res :=>',res)
@@ -76,6 +79,13 @@ export default function AsyncCombo(props: AsyncComboProps) {
                 }
             });
         }
+    }
+    else
+    {  setOptions(UserValue);
+        // setValue(UserValue)
+        setFirstLoad(false)
+        setLoading(false);
+    }
 
     }
 

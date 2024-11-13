@@ -58,6 +58,7 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
             getOptionLabel={(option: any) => option.caption}
                       variant='outlined'
                       setFilterValue={setSubValue}
+                      UserValue={null}
 
           />
       
@@ -70,7 +71,8 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
             variant='outlined'
             setFilterValue={setIdValue}
                       required={true}
-             disabled={subValue?false:true}         
+             disabled={subValue?false:true}     
+             UserValue={null}    
           />
       
         </Grid>
@@ -86,6 +88,7 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
             variant='outlined'
                       required={true}
                        disabled={(subValue&&componentIdValue)?false:true}
+                       UserValue={null}
           />
 
         </Grid>
@@ -120,6 +123,7 @@ const ReportFilters = ({systemId,onSubmit}:any) => {
             getOptionLabel={(option: any) => option.name}
             variant='outlined'
                       setFilterValue={setValue}
+                      UserValue={null}
                       
           />
         </Grid>

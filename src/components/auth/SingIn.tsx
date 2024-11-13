@@ -15,7 +15,7 @@ import Captcha, { captchaList } from '../Captcha'
 import CachedTwoToneIcon from '@mui/icons-material/CachedTwoTone'
 import baseUrl from '../../utils/Util'
 import { toast } from 'react-toastify'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SignUp from './SignUp'
 import { LoginConfig } from '../../pages/auth/LoginConfigForm'
@@ -27,9 +27,16 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
   let { signIn } = useAuth()
   const [value, setValue] = React.useState(captchaList[getRandomNumber()])
   const [error, setError] = React.useState('')
+  const [loginConfig ] = useState<LoginConfig>();
   const handleCloseModal = () => {
     setOpen(false)
   }
+
+
+  useEffect(()=>{
+    console.log('loginConfig',loginConfig)
+  },[])
+
   const resetError = () => {
     setError('')
   }
@@ -187,8 +194,8 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
            {config.showForgetPasswordLink &&  <Button variant="text" onClick={() => {}}>
               بازیابی رمز عبور
             </Button>}
-            { config.showSignUpLink &&  config.showForgetPasswordLink && <>{'/'}</>}
-            {
+            {/* { config.showSignUpLink &&  config.showForgetPasswordLink && <>{'/'}</>} */}
+            {/* {
               config.showSignUpLink && 
               <Button
                 variant="text"
@@ -198,7 +205,7 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
               >
                 ثبت نام نمایید
               </Button>
-            }
+            } */}
           </Grid>
           <Grid
             item
@@ -220,7 +227,7 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
               <Typography sx={{ fontSize: '1rem' }}> ورود به سامانه</Typography>
             </Button>
             
-           
+           { config.showSignUpLink && 
             <Button
                 // variant="text"
                 onClick={() => {
@@ -234,6 +241,7 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
               >
                 ثبت نام 
               </Button>
+         }
               
           </Grid>
           {open && (

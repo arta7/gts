@@ -35,6 +35,9 @@ const style = {
   px: 2,
   pb: 1,
 }
+
+
+
 const SignUp = (props: any) => {
   const { setState, onClose, open, setOpen } = props
   const { signUp } = useAuth()
@@ -48,15 +51,15 @@ const SignUp = (props: any) => {
     getValues,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      userName: '',
-      email: '',
-      password: '',
-      rePassword: '',
-      cellPhoneNumber: '',
-    },
+    // defaultValues: {
+    //   firstName: '',
+    //   lastName: '',
+    //   userName: '',
+    //   email: '',
+    //   // password: '',
+    //   // rePassword: '',
+    // }
+    
   })
   const [formData,setFormData]=useState()
   const [swalOpen, setSwalOpen] = useState(false)
@@ -82,10 +85,11 @@ const SignUp = (props: any) => {
   }
 
   const onSubmit = (data: any) => {
+    console.log('data',data)
     if (!confirm){
       setOpenOtpModal(true)
-    setFormData(data)
-  }
+      setFormData(data)
+     }
   }
   const signup = async () => {
       if (confirm && formData) {
@@ -100,6 +104,12 @@ const SignUp = (props: any) => {
       }
     } 
   }
+
+  const UserValue = [{id:1,name:'حقیقی'},{id:2,name:'حقوقی'}]
+
+
+
+
   useEffect(() => {
   
      signup()
@@ -175,7 +185,7 @@ const SignUp = (props: any) => {
                     onChange={onChange}
                     value={value}
                     focused={errors.firstName || value ? true : false}
-                    helperText={errors?.firstName?.message}
+                    // helperText={errors?.firstName?.message}
                     error={errors && errors.firstName ? true : false}
                   />
                 )}
@@ -201,7 +211,7 @@ const SignUp = (props: any) => {
                     onChange={onChange}
                     value={value}
                     focused={errors.lastName || value ? true : false}
-                     helperText={errors?.lastName?.message}
+                    //  helperText={errors?.lastName?.message}
                     error={errors && errors.lastName ? true : false}
                   />
                 )}
@@ -209,7 +219,7 @@ const SignUp = (props: any) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <Controller
-                name="cellPhoneNumber"
+                name="userName"
                 rules={{
                   required: { value: true, message: `وارد کردن شماره همراه الزامیست` },
                   
@@ -227,10 +237,11 @@ const SignUp = (props: any) => {
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
-                     helperText={errors?.cellPhoneNumber?.message}
-                    focused={errors.cellPhoneNumber || value ? true : false}
-                    error={errors && errors.cellPhoneNumber ? true : false}
-                
+                    //  helperText={errors?.userName?.message}
+                    focused={errors.userName || value ? true : false}
+                    error={errors && errors.userName ? true : false}
+
+
                   />
                 )}
               />
@@ -238,10 +249,12 @@ const SignUp = (props: any) => {
             <Grid item xs={12} sm={6} md={6}>
               
             <AsyncComboInput
-           control={control}  name={'OrganizationType'} label='نوع شرکت' 
-             url={`base/v1/api/component/get-dropdown-data?uiComponentId=2730`}
+           control={control}  name={'LicenseType'} label='نوع شرکت' 
+           url={""}
+            //  url={`/gts/v1/api/component/get-dropdown-data?uiComponentId=28342`}
             getOptionLabel={(option: any) => option.name}
             variant='outlined'
+            UserValue={UserValue}
                      // setFilterValue={setValue}
                       
           />
@@ -293,7 +306,7 @@ const SignUp = (props: any) => {
                     value={value}
                     focused={errors.email || value ? true : false}
                     error={errors && errors.email ? true : false}
-                    helperText={errors.email && 'فرمت ایمیل صحیح نمی باشد '}
+                    // helperText={errors.email && 'فرمت ایمیل صحیح نمی باشد '}
                   />
                 )}
               />
@@ -380,7 +393,7 @@ const SignUp = (props: any) => {
                 onClose={handleCloseOtpModal}
                 setConfirm={setConfirm}
                 setEditNum={setEditNum}
-                phoneNumber={getValues('cellPhoneNumber')}
+                phoneNumber={getValues('userName')}
               />
               <Button
                 sx={{ width: '160px' }}
