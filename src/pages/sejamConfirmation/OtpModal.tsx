@@ -33,7 +33,8 @@ const OtpModal = ({ open, onClose, timer, resetTimer, disableResetTimer, validCo
         <Dialog open={open} onClose={() => onClose()}>
             <DialogContent>
                 <RootContent>
-                    <Typography variant='h6'>{`لطفا کد ارسال شده به شماره `} <Typography component={'span'} sx={{ direction: 'rtl', color: 'red' }} dir='ltr' variant='subtitle2'>{` (${cellPhoneNumber.substring(0, 5)}****${cellPhoneNumber.substring(9)}) `}</Typography>{' را وارد کنید'}</Typography>
+                    <Typography variant='h6'>{`لطفا کد ارسال شده به شماره `} <Typography component={'span'} 
+                    sx={{ direction: 'rtl', color: 'red' }} dir='ltr' variant='subtitle2'>{` (${cellPhoneNumber.substring(0, 5)}****${cellPhoneNumber.substring(9)}) `}</Typography>{' را وارد کنید'}</Typography>
                     <Typography>
                         {`زمان اعتبار کد ${validCodeTimer}`}
                     </Typography>

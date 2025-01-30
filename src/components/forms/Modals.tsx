@@ -53,7 +53,7 @@ export default function Modals({
   const [initialState, setInitialState] = useState({})
 
   if (Object.keys(initialData).length) {
-    console.log('fields 1 : ',fields)
+    console.log('fields 1 : ',sectionId)
    if (fields.length) {
      fields.forEach((fi: any) => {
        if (fi.uiComponentType === 'MultiSelectDropDown') {
@@ -77,7 +77,9 @@ export default function Modals({
          setInObject(initialState, fi.aliasName, _v)
          
        }
-       else {
+       else 
+      //  if (fi.uiComponentType === 'TextBox') 
+        {
          const _v: any =
            initialData && Object.keys(initialData).length
              ? getFromObject(initialData, fi.aliasName)
@@ -121,7 +123,7 @@ export default function Modals({
              ? getFromObject(initialData, fi.aliasName)
              : ''
          setInObject(initialState, fi.aliasName, _v)
-         console.log('value 1 => ',_v)
+         console.log('value 1 => ',_v,'fi.aliasName = > ',fi.aliasName)
 
       
        }
@@ -176,6 +178,7 @@ export default function Modals({
     setSwalOpen(false)
   }
   const onSubmit = () => {
+ 
     const data = getValues()
      console.log('data : ',data)
     let state = {}
@@ -338,7 +341,7 @@ export default function Modals({
                   masterId={initialData.masterId}
                   isReadOnly={field.isReadOnly}
                   FieldSum={field.fieldSum}
-                  maxLen={field.S00_field[0]?.maxLen != null ?  field.S00_field[0]?.maxLen : null}
+                  maxLen={field.S00_field[0]?.maxLen != null && field.S00_field[0]?.maxLen != -1 ?  field.S00_field[0]?.maxLen : null}
                 />
               )
             })}

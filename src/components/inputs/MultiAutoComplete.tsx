@@ -77,7 +77,7 @@ export default function MultiAutocompleteInput(props: any) {
         }
       }
     } else if (error) {
-      console.log(error)
+      console.log('error :',error)
     }
   }, [loading])
 

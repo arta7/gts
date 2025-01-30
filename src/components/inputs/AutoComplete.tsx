@@ -59,7 +59,7 @@ export default function AutocompleteInput(props: any) {
  
   const { loading, get, data: response, error } = useAxios()
   useEffect(() => {
-    console.log('masterFieldAliasName',uiComponentId,componentName)
+    // console.log('masterFieldAliasName',uiComponentId,componentName)
     if (componentName == 'Tab') {
       if (masterFieldId) {
         if (getValues(masterFieldAliasName)) {
@@ -80,8 +80,11 @@ export default function AutocompleteInput(props: any) {
         setnewApi(`${url}?uiComponentId=${uiComponentId}`)
       }
     } else if (componentName != 'Tab') {
+
       if (masterId) {
+     
         if (masterFieldId) {
+       
           if (getValues(masterFieldAliasName)) {
             if (typeof getValues(masterFieldAliasName) !== 'object') {
               setnewApi(
@@ -99,9 +102,14 @@ export default function AutocompleteInput(props: any) {
             )
           }
         } else
+        {
+       
           setnewApi(
             `${url}?uiComponentId=${uiComponentId}&masterId=${masterId}&masterParentId=${masterParentId}`
           )
+          console.log('master')
+        }
+          
       } else if (!masterId) {
         if (masterFieldId) {
           if (getValues(masterFieldAliasName)) {
@@ -133,6 +141,7 @@ export default function AutocompleteInput(props: any) {
   }, [api])
   
   useEffect(() => {
+    console.log('response',response)
     if (!loading && response) {
         const { data }: any = response
       if (data.result && data.result.length) {
@@ -248,7 +257,7 @@ export default function AutocompleteInput(props: any) {
                 helperText={
                   errors && errors[aliasName] && `${errors[aliasName].message}`
                 }
-                error={errors && errors[aliasName]}
+                error={errors && errors[aliasName] }
                 variant="outlined"
                 InputProps={{
                   ...params.InputProps,
