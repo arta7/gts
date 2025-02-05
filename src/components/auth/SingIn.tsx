@@ -227,7 +227,8 @@ export default function SignIn(props: {setState:any,config:LoginConfig}) {
               <Typography sx={{ fontSize: '1rem' }}> ورود به سامانه</Typography>
             </Button>
             
-           { config.showSignUpLink && 
+           { 
+           config.showSignUpLink && 
             <Button
                 // variant="text"
                 onClick={() => {

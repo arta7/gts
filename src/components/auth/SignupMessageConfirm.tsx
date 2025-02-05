@@ -33,7 +33,9 @@ const SignUpMessageConfirm = ({
     try {
       const response = await axios.post(`messageing/v1/api/submit`,{
         cellPhoneNumber: Number(phoneNumber)
-      },{ headers: { authorization: `bearer ${token}` } })
+      }
+      // ,{ headers: { authorization: `bearer ${token}` } }
+    )
 
       console.log('response message',response)
     } catch (error) {
@@ -82,7 +84,9 @@ const SignUpMessageConfirm = ({
   const handleResetTimer = () => {
     const response = axios.post('messageing/v1/api/submit', {
       cellPhoneNumber: Number(phoneNumber),
-    },{ headers: { authorization: `bearer ${token}` } })
+    }
+    //,{ headers: { authorization: `bearer ${token}` } }
+  )
 
   }
 
@@ -97,7 +101,7 @@ const SignUpMessageConfirm = ({
               sx={{ direction: 'rtl', color: 'red' }}
               dir="ltr"
               variant="subtitle2"
-            >{` (${phoneNumber.substring(0, 5)}****${phoneNumber.substring(
+            >{` (${phoneNumber?.substring(0, 5)}****${phoneNumber?.substring(
               9,
             )}) `}</Typography>
             {' را وارد کنید'}

@@ -341,7 +341,9 @@ export default function Modals({
                   masterId={initialData.masterId}
                   isReadOnly={field.isReadOnly}
                   FieldSum={field.fieldSum}
-                  maxLen={field.S00_field[0]?.maxLen != null && field.S00_field[0]?.maxLen != -1 ?  field.S00_field[0]?.maxLen : null}
+                  maxLen={field.S00_field[0]?.maxLen != null 
+                    // && field.S00_field[0]?.maxLen != -1 
+                    ?  field.S00_field[0]?.maxLen : null}
                 />
               )
             })}
