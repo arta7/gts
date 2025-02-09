@@ -85,8 +85,12 @@ const SignUp = (props: any) => {
   }
 
   const onSubmit = (data: any) => {
-    console.log('data',data)
+    data = Object.assign({}, data, {isActive: true})
+    data = Object.assign({}, data, {password:data.userName,rePassword:data.userName,UnitId:41})
+    
+       console.log('data',data)
     if (!confirm){
+     
       setOpenOtpModal(true)
       setFormData(data)
      }
@@ -394,6 +398,7 @@ const SignUp = (props: any) => {
                 setConfirm={setConfirm}
                 setEditNum={setEditNum}
                 phoneNumber={getValues('userName')}
+                formData={formData}
               />
               <Button
                 sx={{ width: '160px' }}

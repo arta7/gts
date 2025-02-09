@@ -14,18 +14,22 @@ import { toast } from 'react-toastify'
 import Timer from '../../utils/Timer'
 import axios from 'axios'
 
+const webService = '/user/v1/api';
+
 const SignUpMessageConfirm = ({
   open,
   onClose,
   phoneNumber,
   setConfirm,
   setEditNum,
+  formData
 }: {
   open: boolean
   onClose: any
   phoneNumber: any
   setConfirm: any
-  setEditNum: any
+  setEditNum: any,
+  formData:any
   }) => {
    const token = window.localStorage.getItem('accessToken')
   const getSubmitCode = async () => {
@@ -67,13 +71,41 @@ const SignUpMessageConfirm = ({
   const [otp, setOtp] = useState('')
   const onOtpChange = (value: string) => setOtp(value)
   const handleSubmit = () => {
+    console.log('otp 1',otp.length,otpLength)
     if (otp.length != otpLength) {
-      toast.error('کد وارد شده صحیح نمی باشد!')
+      // toast.error('کد وارد شده صحیح نمی باشد!')
     } else {
-      getConfirmCode().then(() => {
-        onClose()
-        setConfirm(true)
+      console.log('otp',otp.toString())
+      const response = axios.post('messageing/v1/api/confirm', {
+        'cellPhoneNumber': phoneNumber.toString(),
+        'code':otp.toString()
       })
+      
+      console.log('response verify',response)
+      {
+
+        response.then((data)=>{
+          getConfirmCode().then(() => {
+            let promise;
+            const entityToSave = formData;
+            {
+              console.log('tets2', entityToSave)
+              promise = axios.post(`${webService}/register`, entityToSave);
+            }
+            promise.then((response) => {
+              console.log('response', response)
+              onClose()
+            setConfirm(true)
+            }).catch((error) => {
+              console.log('error', error)
+            });
+          
+          })
+        })
+      }
+     
+   
+  
     }
   }
   const handleClose = () => {
