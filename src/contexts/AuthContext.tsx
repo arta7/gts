@@ -200,6 +200,7 @@ function AuthProvider({ children }: any) {
       userName,
       rePassword,
       cellPhoneNumber,
+      UnitId
     } = props
     try {
       const response = await axios.post('/user/v1/api/register', {
@@ -210,7 +211,8 @@ function AuthProvider({ children }: any) {
         userName,
         rePassword,
         cellPhoneNumber,
-        isActive: true
+        isActive: true,
+        UnitId
       })
       const { user } = response.data
       dispatch({
@@ -220,11 +222,13 @@ function AuthProvider({ children }: any) {
         },
       })
     } catch (error: any) {
-      if (error && error.response.status === 401) {
+      console.log('error',error)
+      if (error && error.response.status === 500) {
         let errors;
         errors = error.response.data.result.message
         toast.error(errors);
       }
+      else
       toast.error(getServerError(error));
     }
   }

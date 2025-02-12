@@ -86,7 +86,7 @@ const SignUp = (props: any) => {
 
   const onSubmit = (data: any) => {
     data = Object.assign({}, data, {isActive: true})
-    data = Object.assign({}, data, {password:data.userName,rePassword:data.userName,UnitId:41})
+    data = Object.assign({}, data, {password:data.userName,rePassword:data.userName,'UnitId':data.LicenseType == 1 ?  Number('41') : Number('42')})
     
        console.log('data',data)
     if (!confirm){
@@ -99,8 +99,10 @@ const SignUp = (props: any) => {
       if (confirm && formData) {
        try {
         //@ts-ignore 
-        await signUp(formData).then(()=>{setOpen(false)
-        onClose()})
+        // await signUp(formData).then(()=>{
+          setOpen(false)
+        onClose()
+      // )
       } catch (error) {
         //@ts-ignore
         const message = error.response.data.result.message || 'خطای غیر منتظره'

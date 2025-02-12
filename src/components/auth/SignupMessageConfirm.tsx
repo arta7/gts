@@ -29,30 +29,30 @@ const SignUpMessageConfirm = ({
   phoneNumber: any
   setConfirm: any
   setEditNum: any,
-  formData:any
-  }) => {
-   const token = window.localStorage.getItem('accessToken')
+  formData: any
+}) => {
+  const token = window.localStorage.getItem('accessToken')
   const getSubmitCode = async () => {
-   
-    try {
-      const response = await axios.post(`messageing/v1/api/submit`,{
-        cellPhoneNumber: Number(phoneNumber)
-      }
-      // ,{ headers: { authorization: `bearer ${token}` } }
-    )
 
-      console.log('response message',response)
+    try {
+      const response = await axios.post(`messageing/v1/api/submit`, {
+        cellPhoneNumber: phoneNumber.toString()
+      }
+        // ,{ headers: { authorization: `bearer ${token}` } }
+      )
+
+      console.log('response message', response)
     } catch (error) {
       //@ts-ignore
-      const message = error.response.data.result.message || 'خطای غیر منتظره'
-      toast.error(message)
+      // const message = error.response.data.result.message || 'خطای غیر منتظره'
+      // toast.error(message)
     }
   }
   const getConfirmCode = async () => {
     try {
       const response = await axios.post('messageing/v1/api/confirm', {
-        cellPhoneNumber:  Number(phoneNumber),
-        code: otp
+        cellPhoneNumber: (phoneNumber.toString()),
+        code: otp.toString()
       })
       setConfirm(true)
     } catch (error) {
@@ -71,41 +71,42 @@ const SignUpMessageConfirm = ({
   const [otp, setOtp] = useState('')
   const onOtpChange = (value: string) => setOtp(value)
   const handleSubmit = () => {
-    console.log('otp 1',otp.length,otpLength)
+    // console.log('otp 1',otp.length,otpLength)
     if (otp.length != otpLength) {
-      // toast.error('کد وارد شده صحیح نمی باشد!')
+      toast.error('کد وارد شده صحیح نمی باشد!')
     } else {
-      console.log('otp',otp.toString())
-      const response = axios.post('messageing/v1/api/confirm', {
-        'cellPhoneNumber': phoneNumber.toString(),
-        'code':otp.toString()
-      })
-      
-      console.log('response verify',response)
-      {
+      // console.log('otp',otp.toString())
+      // const response = axios.post('messageing/v1/api/confirm', {
+      //   'cellPhoneNumber': phoneNumber.toString(),
+      //   'code':otp.toString()
+      // })
 
-        response.then((data)=>{
-          getConfirmCode().then(() => {
-            let promise;
-            const entityToSave = formData;
-            {
-              console.log('tets2', entityToSave)
-              promise = axios.post(`${webService}/register`, entityToSave);
-            }
-            promise.then((response) => {
-              console.log('response', response)
-              onClose()
+      // console.log('response verify',response)
+
+      getConfirmCode()
+        .then(() => {
+          let promise;
+          const entityToSave = formData;
+          {
+            console.log('tets2', entityToSave)
+            promise = axios.post(`${webService}/register`, entityToSave);
+          }
+          promise.then((response) => {
+            console.log('response', response)
+            const message = 'ثبت نام با موفقیت انجام گردید.'
+            toast.error(message)
+            onClose()
             setConfirm(true)
-            }).catch((error) => {
-              console.log('error', error)
-            });
-          
-          })
+          }).catch((error) => {
+            console.log('error', error)
+          });
+
         })
-      }
-     
-   
-  
+
+
+
+
+
     }
   }
   const handleClose = () => {
@@ -115,10 +116,10 @@ const SignUpMessageConfirm = ({
 
   const handleResetTimer = () => {
     const response = axios.post('messageing/v1/api/submit', {
-      cellPhoneNumber: Number(phoneNumber),
+      cellPhoneNumber: (phoneNumber.toString()),
     }
-    //,{ headers: { authorization: `bearer ${token}` } }
-  )
+      //,{ headers: { authorization: `bearer ${token}` } }
+    )
 
   }
 

@@ -9,6 +9,7 @@ axios.defaults.baseURL=process.env.VITE_APP_API_URL;
 axios.interceptors.response.use(function (response) {
   return response;
 },(error)=> {
+  console.log('error message',error)
   if (error&& error.response.status === 400) {
     let errors;
   errors = error.response.data.result.message
