@@ -35,7 +35,7 @@ export default function MasterGrid({ structure,SubjectCaption }: any) {
         userId:UserValue?.id 
       })
       .then((response: any) => {
-         console.log('componentInfo.id grid',componentInfo.id)
+         console.log('response.data.result => ',response)
        
         if (!response.data.result) {
           toast.error(inValidResponseFormatGridRows)

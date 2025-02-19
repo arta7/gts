@@ -1,7 +1,8 @@
 import { Menu, MenuItem } from "@mui/material";
 import React,{useRef} from "react";
 import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf'
+// @ts-ignore
+import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable'
 import moment from 'jalali-moment';
 

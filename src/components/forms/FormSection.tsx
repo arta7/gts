@@ -162,7 +162,7 @@ const FormSection = (props: any) => {
         Object.keys(state).length ===
         fields.filter((i: any) => i.useInSaveMethod === true).length
       ) {
-        console.log('state',state)
+        console.log('state',`${JSON.stringify(state)}`)
         axios
           .post(createUrl, {
             componentId: sectionId,
@@ -170,6 +170,7 @@ const FormSection = (props: any) => {
             UserId:UserValue?.id 
           })
           .then((res: any) => {
+            console.log('res',res)
             if (res.data.detail) {
               toast.success(res.data.detail.success)
             } else if (res.status === 201) {
