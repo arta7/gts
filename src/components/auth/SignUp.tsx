@@ -252,7 +252,7 @@ const SignUp = (props: any) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            {/* <Grid item xs={12} sm={6} md={6}>
               
             <AsyncComboInput
            control={control}  name={'LicenseType'} label='نوع شرکت' 
@@ -264,7 +264,7 @@ const SignUp = (props: any) => {
                      // setFilterValue={setValue}
                       
           />
-        </Grid>
+        </Grid> */}
             {/* <Grid item xs={12} sm={6} md={6}>
               <Controller
                 name="userName"
@@ -291,7 +291,7 @@ const SignUp = (props: any) => {
                 )}
               />
             </Grid> */}
-            <Grid item xs={12} sm={12} md={12}>
+           <Grid item xs={12} sm={6} md={6}>
               <Controller
                 name="email"
                 control={control}

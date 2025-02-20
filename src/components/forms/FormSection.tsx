@@ -162,7 +162,11 @@ const FormSection = (props: any) => {
         Object.keys(state).length ===
         fields.filter((i: any) => i.useInSaveMethod === true).length
       ) {
-        console.log('state',`${JSON.stringify(state)}`)
+        console.log('state',{
+          componentId: sectionId,
+          json: `${JSON.stringify(state)}`,
+          UserId:UserValue?.id 
+        })
         axios
           .post(createUrl, {
             componentId: sectionId,
